@@ -16,23 +16,23 @@
     sentMsg.classList.remove('d-block');
 
     try {
-      const res  = await fetch('https://api.web3forms.com/submit', {
+      const res  = await fetch('/forms/contact.php', {
         method: 'POST',
         body: new FormData(form)
       });
-      const json = await res.json();
+      const text = (await res.text()).trim();
 
       loading.classList.remove('d-block');
 
-      if (json.success) {
+      if (res.ok && text === 'OK') {
         sentMsg.classList.add('d-block');
         form.reset();
       } else {
-        throw new Error(json.message || 'Submission failed. Please try again.');
+        throw new Error(text || 'Submission failed. Please try again.');
       }
     } catch (err) {
       loading.classList.remove('d-block');
-      errorMsg.innerHTML = err.message;
+      errorMsg.textContent = err.message;
       errorMsg.classList.add('d-block');
     }
   });

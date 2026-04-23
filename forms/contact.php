@@ -58,6 +58,7 @@ if (mail($to, "Portfolio Contact: {$subject}", $body, $headers)) {
     http_response_code(200);
     echo 'OK';
 } else {
+    error_log('contact.php: failed to send portfolio contact email from ' . $email);
     http_response_code(500);
     echo 'Could not send the message. Please try again or email directly at ' . $receiving_email;
 }

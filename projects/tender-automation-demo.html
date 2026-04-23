@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tender Automation Demo | Jonathan Mupini</title>
+  <meta name="description" content="Interactive demo of AI tender automation: PDF/DOCX ingestion, OCR fallback, structured extraction, and review workflow.">
+  <link rel="canonical" href="https://www.mupinilabs.com/projects/tender-automation-demo.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.mupinilabs.com/projects/tender-automation-demo.html">
+  <meta property="og:title" content="AI Tender Automation Demo">
+  <meta property="og:description" content="Demo-only experience of a tender automation workflow with extraction and review stages.">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"></noscript>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root{--acc:#111;--tag:#ffdd00;--text:#1d1d1f;--muted:#616166;--border:#dfe3ea}
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:'Inter',sans-serif;background:#fff;color:var(--text)}
+    .top-nav{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.75rem 1.5rem;display:flex;justify-content:space-between;z-index:100}
+    .top-nav a{text-decoration:none;color:var(--text);font-weight:600}
+    .top-nav .links{display:flex;gap:1.2rem}
+    .hero{padding:2.8rem 0 1.5rem}
+    .hero h1{font-size:clamp(2rem,5vw,2.8rem);font-weight:800;letter-spacing:-.03em;margin:0 0 .7rem}
+    .hero p{color:var(--muted);max-width:760px}
+    .pill{display:inline-block;background:#111;color:#fff3b1;border-radius:999px;padding:.3rem .8rem;font-size:.78rem;font-weight:700;margin-bottom:1rem}
+    .cta{display:flex;gap:.8rem;flex-wrap:wrap;margin:1rem 0 1.6rem}
+    .cta a{display:inline-flex;align-items:center;gap:.35rem;text-decoration:none;padding:.6rem .9rem;border-radius:999px;font-weight:700;border:1.5px solid #111}
+    .cta .primary{background:var(--tag);color:#111}
+    .cta .ghost{background:#fff;color:#111}
+    .demo-frame{border:2px solid #121212;border-radius:16px;overflow:hidden;min-height:720px;box-shadow:0 12px 24px rgba(0,0,0,.08)}
+    iframe{width:100%;height:720px;border:0;background:#fff}
+    .help{font-size:.88rem;color:var(--muted);margin-top:.8rem}
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="/">Jonathan Mupini</a>
+    <div class="links">
+      <a href="/">Portfolio</a>
+      <a href="/blog/">Blog</a>
+      <a href="/services.html">Services</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <span class="pill">Demo Purposes Only</span>
+      <h1>AI Tender Automation Demo</h1>
+      <p>This sandbox demonstrates tender ingestion (PDF/DOCX), OCR fallback for image-based PDFs, OpenAI structured extraction, and a review workflow with draft/final save states.</p>
+      <div class="cta">
+        <a class="primary" href="/tender-automation/frontend/index.html" target="_blank" rel="noopener noreferrer">Open Full Demo</a>
+        <a class="ghost" href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener noreferrer">Open API Docs</a>
+      </div>
+      <div class="demo-frame">
+        <iframe src="/tender-automation/frontend/index.html" title="Tender Automation Demo"></iframe>
+      </div>
+      <p class="help">If the iframe is blank, run the backend API locally and use the Open Full Demo button.</p>
+    </div>
+  </section>
+</body>
+</html>

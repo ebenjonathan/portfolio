@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building a Centralized XDR System with Wazuh | Jonathan Mupini</title>
+  <meta name="description" content="Case study: centralized XDR deployment with Wazuh and Elastic Stack for real-time threat detection across endpoints.">
+  <link rel="canonical" href="https://www.mupinilabs.com/projects/xdr-wazuh.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.mupinilabs.com/projects/xdr-wazuh.html">
+  <meta property="og:title" content="Building a Centralized XDR System with Wazuh">
+  <meta property="og:description" content="How I designed and deployed a centralized XDR stack to eliminate security blind spots and accelerate incident detection.">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"></noscript>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{--acc:#0071e3;--text:#1d1d1f;--muted:#6e6e73;--border:#e8e8ed;--bg-alt:#f5f5f7}
+    *,*::before,*::after{box-sizing:border-box;min-width:0}
+    html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:var(--text);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6}
+    a{color:var(--acc);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .top-nav{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;z-index:100}
+    .top-nav .brand{font-weight:700;color:var(--text)}
+    .top-nav .links{display:flex;gap:1.25rem;font-size:.9rem}
+    .top-nav .links a{color:var(--muted);font-weight:500}
+    .top-nav .links a:hover{color:var(--acc);text-decoration:none}
+    .case-study{padding:3rem 0 4rem}
+    .case-study h1{font-size:clamp(1.9rem,4.5vw,2.6rem);font-weight:800;letter-spacing:-.03em;margin-bottom:1rem}
+    .case-study h2{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin:2rem 0 .7rem}
+    .case-study .lead{color:var(--muted);font-size:1.05rem}
+    .case-study p{color:#3a3a3c;line-height:1.8}
+    .case-study ul{padding-left:1.2rem}
+    .case-study li{margin:.45rem 0;line-height:1.75;color:#3a3a3c}
+    .meta-note{background:var(--bg-alt);border:1.5px solid var(--border);border-radius:12px;padding:1rem 1.1rem;margin:1rem 0 1.4rem}
+    .case-footer{border-top:1px solid var(--border);margin-top:2.4rem;padding-top:1.2rem;display:flex;gap:1rem;flex-wrap:wrap}
+    .case-footer a{font-weight:600}
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="/" class="brand">Jonathan Mupini</a>
+    <div class="links">
+      <a href="/">Portfolio</a>
+      <a href="/blog/">Blog</a>
+      <a href="/services.html">Services</a>
+    </div>
+  </nav>
+
+  <section class="case-study py-5">
+    <div class="container">
+      <h1>Building a Centralized XDR System with Wazuh</h1>
+      <div class="meta-note">
+        <p><strong>Role:</strong> Lead Developer</p>
+        <p><strong>Scope:</strong> End-to-end system design, backend, frontend, deployment</p>
+      </div>
+      <p class="lead">I designed and deployed an Extended Detection and Response (XDR) system to eliminate blind spots in security monitoring and enable real-time threat detection across endpoints.</p>
+      <hr>
+      <h2>The Problem</h2>
+      <p>The environment had no centralized visibility. Logs were scattered across systems, making it almost impossible to detect suspicious behavior early or investigate incidents efficiently.</p>
+      <p>When something went wrong, response was slow and reactive. There was no unified way to correlate events or identify patterns across machines.</p>
+      <h2>My Approach</h2>
+      <p>Instead of patching individual issues, I focused on building a centralized security layer that could aggregate, analyze, and respond to events in real time.</p>
+      <p>I implemented a Wazuh-based XDR system that collects logs from multiple endpoints, applies detection rules, and surfaces actionable alerts through a single dashboard.</p>
+      <h2>What I Built</h2>
+      <ul>
+        <li>Deployed a Wazuh manager for centralized log aggregation and analysis</li>
+        <li>Installed and configured agents across endpoints for continuous monitoring</li>
+        <li>Integrated Elastic Stack for indexing, search, and visualization</li>
+        <li>Created custom detection rules for authentication anomalies and system threats</li>
+        <li>Built dashboards for real-time monitoring and incident visibility</li>
+      </ul>
+      <h2>Key Decisions</h2>
+      <ul>
+        <li>Chose centralized logging over distributed scripts to improve visibility and control</li>
+        <li>Prioritized real-time alerting to reduce detection delays</li>
+        <li>Focused on actionable alerts to avoid noise and alert fatigue</li>
+      </ul>
+      <h2>The Impact</h2>
+      <ul>
+        <li>Eliminated fragmented logging by centralizing all security events</li>
+        <li>Reduced incident detection time from reactive investigation to near real-time awareness</li>
+        <li>Enabled faster root cause analysis through correlated event data</li>
+        <li>Shifted security posture from reactive to proactive monitoring</li>
+      </ul>
+      <h2>Tech Stack</h2>
+      <p>Wazuh, Elastic Stack, Linux, Log Analysis, Security Monitoring</p>
+
+      <div class="case-footer">
+        <a href="/">Back to portfolio</a>
+        <a href="/blog/automating-operations.html">Related article: Automation</a>
+        <a href="/blog/ai-tender-automation.html">Related article: AI Tender Automation</a>
+        <a href="/projects/tender-automation-demo.html">Try demo: Tender Automation</a>
+        <a href="/projects/performance-management-system.html">Next case study</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

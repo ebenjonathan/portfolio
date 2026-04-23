@@ -9,3 +9,16 @@ desktop.ini
 
 # Logs
 *.log
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Runtime storage/data artifacts
+**/storage/
+*.db
+*.ndjson
+data/
+!data/
+!data/.htaccess

@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I Cut My Load Time in Half… Here's How | Jonathan Mupini</title>
+  <meta name="description" content="A step-by-step breakdown of exactly how I improved Core Web Vitals on a portfolio site: unused vendor removal, async fonts, deferred scripts, WebP, and inlined critical CSS.">
+  <link rel="canonical" href="https://www.mupinilabs.com/blog/web-performance-lcp-optimization.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.mupinilabs.com/blog/web-performance-lcp-optimization.html">
+  <meta property="og:title" content="I Cut My Load Time in Half… Here's How">
+  <meta property="og:description" content="A step-by-step breakdown of exactly how I improved Core Web Vitals on a portfolio site.">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Cutting LCP from 5.8s to Under 2.5s",
+    "author": {"@type": "Person", "name": "Jonathan Mupini", "url": "https://www.mupinilabs.com/"},
+    "datePublished": "2026-04-15",
+    "publisher": {"@type": "Person", "name": "Jonathan Mupini"}
+  }
+  </script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"></noscript>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{--acc:#0071e3;--text:#1d1d1f;--muted:#6e6e73;--border:#e8e8ed;--bg-alt:#f5f5f7}
+    *,*::before,*::after{box-sizing:border-box;min-width:0}
+    html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:var(--text);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6}
+    a{color:var(--acc);text-decoration:none}
+    a:hover{text-decoration:underline}
+    img,picture{max-width:100%;height:auto}
+    .blog-nav{position:sticky;top:0;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;z-index:100}
+    .blog-nav .brand{font-weight:700;font-size:1rem;color:var(--text)}
+    .blog-nav .brand:hover{text-decoration:none;color:var(--acc)}
+    .blog-nav .nav-links{display:flex;gap:1.5rem;font-size:.875rem}
+    .blog-nav .nav-links a{color:var(--muted);font-weight:500}
+    .blog-nav .nav-links a:hover{color:var(--acc);text-decoration:none}
+    .article-wrap{max-width:720px;margin:0 auto;padding:3rem 1.5rem 5rem}
+    .tag{display:inline-block;background:rgba(0,113,227,.09);color:var(--acc);border-radius:980px;padding:.2rem .7rem;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+    .article-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.25rem}
+    .article-title{font-size:clamp(1.8rem,5vw,2.5rem);font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1.2;margin:0 0 .75rem}
+    .article-meta{font-size:.82rem;color:var(--muted);margin-bottom:2.5rem;display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border);padding-bottom:1.5rem}
+    .article-meta span{display:inline-flex;align-items:center;gap:.3rem}
+    .article-body h2{font-size:1.25rem;font-weight:700;color:var(--text);margin:2.5rem 0 .75rem;letter-spacing:-.02em}
+    .article-body h3{font-size:1.05rem;font-weight:700;color:var(--text);margin:1.75rem 0 .5rem}
+    .article-body p{margin:0 0 1.25rem;color:#3a3a3c;font-size:1rem;line-height:1.8}
+    .article-body ul,.article-body ol{padding-left:1.4rem;margin:0 0 1.25rem}
+    .article-body li{color:#3a3a3c;font-size:1rem;line-height:1.75;margin-bottom:.4rem}
+    .article-body strong{color:var(--text);font-weight:600}
+    .article-body code{background:var(--bg-alt);border:1px solid var(--border);border-radius:5px;padding:.1rem .35rem;font-size:.85em;font-family:'Menlo','Monaco','Consolas',monospace;color:#c41a16}
+    .article-body pre{background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;overflow-x:auto;margin:0 0 1.5rem}
+    .article-body pre code{background:none;border:none;padding:0;color:var(--text);font-size:.84rem;line-height:1.65}
+    .outcome-box{background:var(--bg-alt);border:1.5px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;margin:2rem 0}
+    .outcome-box h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin:0 0 .85rem}
+    .outcome-box ul{margin:0;padding-left:1.2rem}
+    .outcome-box li{font-size:.9rem;color:#3a3a3c;margin-bottom:.4rem;line-height:1.6}
+    .lesson-box{border-left:3px solid var(--acc);padding:.75rem 1.25rem;background:rgba(0,113,227,.04);border-radius:0 8px 8px 0;margin:1.5rem 0}
+    .lesson-box p{color:#3a3a3c;margin:0;font-size:.95rem;line-height:1.75}
+    .results-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
+    .results-table th{background:var(--bg-alt);color:var(--text);font-weight:700;padding:.6rem 1rem;text-align:left;border-bottom:2px solid var(--border)}
+    .results-table td{padding:.6rem 1rem;border-bottom:1px solid var(--border);color:#3a3a3c}
+    .results-table .pass{color:#34c759;font-weight:700}
+    .results-table .fail{color:#ff3b30;font-weight:700}
+    .article-footer{border-top:1px solid var(--border);padding-top:2rem;margin-top:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .article-footer a{display:inline-flex;align-items:center;gap:.35rem;font-size:.875rem;font-weight:600;color:var(--acc)}
+    .article-footer a:hover{text-decoration:none;opacity:.8}
+    @media(max-width:600px){.article-wrap{padding:2rem 1rem 3.5rem}.blog-nav{padding:.65rem 1rem}.results-table td,.results-table th{padding:.5rem .6rem}}
+  </style>
+</head>
+<body>
+  <nav class="blog-nav">
+    <a href="/" class="brand">Jonathan Mupini</a>
+    <div class="nav-links">
+      <a href="/">Portfolio</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-wrap">
+
+    <div class="article-tags">
+      <span class="tag">Performance</span>
+      <span class="tag">Web Dev</span>
+      <span class="tag">Core Web Vitals</span>
+    </div>
+
+    <h1 class="article-title">I Cut My Load Time in Half… Here's How</h1>
+
+    <div class="article-meta">
+      <span><i class="bi bi-person"></i> Jonathan Mupini</span>
+      <span><i class="bi bi-calendar3"></i> April 2026</span>
+      <span><i class="bi bi-clock"></i> 5 min read</span>
+    </div>
+
+    <div class="article-body">
+
+      <p>I ran Lighthouse on this portfolio site. LCP came back at 5.8 seconds. The threshold for a "Good" rating is under 2.5 seconds. This article is a step-by-step record of what I changed and why each change mattered.</p>
+
+      <p>LCP stands for Largest Contentful Paint. It measures when the main visible content appears on screen. A slow LCP feels like a slow page even if the rest loads quickly.</p>
+
+      <h2>The Diagnosis</h2>
+
+      <p>Lighthouse flagged three categories of problems:</p>
+
+      <h3>1. Render-blocking resources</h3>
+      <p>Google Fonts loaded with a standard <code>&lt;link rel="stylesheet"&gt;</code>. The browser stops rendering and waits for the font file to download before it shows any text. This alone added over a second to the LCP.</p>
+
+      <h3>2. Unused JavaScript</h3>
+      <p>Four vendor libraries were included in <code>&lt;script&gt;</code> tags but were never used anywhere on the page:</p>
+      <ul>
+        <li><strong>GLightbox</strong>, a lightbox library (~59KB)</li>
+        <li><strong>Isotope Layout</strong>, a grid filtering library (~55KB)</li>
+        <li><strong>Swiper</strong>, a slider library (~135KB)</li>
+        <li><strong>imagesLoaded</strong>, a utility (~7KB)</li>
+      </ul>
+      <p>Combined: ~256KB of JavaScript the browser downloaded, parsed, and tried to execute for nothing. These were left over from a template that included every possible feature. None of the corresponding HTML classes or initialisers existed anywhere in the page.</p>
+
+      <h3>3. No image optimisation</h3>
+      <p>All images were PNG. No WebP. Below-fold images had no <code>loading="lazy"</code> attribute.</p>
+
+      <p>There were also smaller issues: all scripts loaded synchronously (no <code>defer</code>), no critical CSS was inlined, and the CSS files were unminified.</p>
+
+      <h2>What I Fixed</h2>
+
+      <h3>Fix 1: Async font loading</h3>
+      <p>I replaced the blocking <code>rel="stylesheet"</code> with a preload trick that is well-supported across all modern browsers:</p>
+
+      <pre><code>&lt;link rel="preload" as="style"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+  onload="this.onload=null;this.rel='stylesheet'"&gt;
+&lt;noscript&gt;
+  &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?..."&gt;
+&lt;/noscript&gt;</code></pre>
+
+      <p>The browser preloads the font in the background. It does not block the render. The <code>&lt;noscript&gt;</code> fallback handles visitors with JavaScript disabled.</p>
+
+      <h3>Fix 2: Remove unused vendor bundles</h3>
+      <p>I searched the entire HTML body for any use of GLightbox, Isotope, Swiper, or imagesLoaded. No class names. No JavaScript calls. No data attributes. Nothing.</p>
+      <p>I removed four <code>&lt;script&gt;</code> tags and two <code>&lt;link&gt;</code> tags for their CSS files. This cut roughly 256KB from the JavaScript payload and removed two render-blocking CSS requests from the critical path.</p>
+
+      <h3>Fix 3: Defer all scripts</h3>
+      <p>I added <code>defer</code> to every remaining <code>&lt;script&gt;</code> tag:</p>
+
+      <pre><code>&lt;script defer src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+&lt;script defer src="assets/vendor/aos/aos.js"&gt;&lt;/script&gt;
+&lt;script defer src="assets/js/main.js"&gt;&lt;/script&gt;</code></pre>
+
+      <p>Deferred scripts download in parallel with HTML parsing. They execute after the HTML is fully parsed. The page renders without waiting for any script. This is a one-line change per script tag with almost no downside.</p>
+
+      <h3>Fix 4: Inline critical CSS</h3>
+      <p>The hero section and preloader need their styles before any external CSS loads. I moved those rules into a <code>&lt;style&gt;</code> block in <code>&lt;head&gt;</code>. This is roughly 1.2KB of CSS that prevents a flash of unstyled content on the first paint.</p>
+      <p>I did not inline everything, only what is visible above the fold before the external CSS loads.</p>
+
+      <h3>Fix 5: WebP images</h3>
+      <p>I converted the site logo from PNG to WebP using Python's Pillow library:</p>
+
+      <pre><code>from PIL import Image
+img = Image.open("mupinilabs-logo.png")
+img.save("mupinilabs-logo.webp", "WEBP", quality=85, method=6)</code></pre>
+
+      <p>The WebP file was 16% smaller than the PNG. I updated the footer to use a <code>&lt;picture&gt;</code> element with the WebP as the primary source and PNG as fallback. I also added <code>loading="lazy"</code> since the logo is below the fold:</p>
+
+      <pre><code>&lt;picture&gt;
+  &lt;source srcset="assets/img/mupinilabs-logo.webp" type="image/webp"&gt;
+  &lt;img src="assets/img/mupinilabs-logo.png" alt="MupiniLabs"
+       loading="lazy" width="120" height="40"&gt;
+&lt;/picture&gt;</code></pre>
+
+      <h3>Fix 6: Minify CSS and JS</h3>
+      <p>I minified the main CSS and JavaScript files using Python tools (<code>csscompressor</code> and <code>jsmin</code>). The results:</p>
+      <ul>
+        <li><code>main.css</code>: −30% (32KB → 22KB)</li>
+        <li><code>custom.css</code>: −23% (13.5KB → 10.4KB)</li>
+        <li><code>main.js</code>: −33% (after removing dead code from unused libraries)</li>
+      </ul>
+
+      <h2>Results</h2>
+
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Before</th>
+            <th>After</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>LCP</td>
+            <td>5.8s</td>
+            <td>&lt; 2.5s</td>
+            <td class="pass">PASS</td>
+          </tr>
+          <tr>
+            <td>Render-blocking requests</td>
+            <td>3</td>
+            <td>0</td>
+            <td class="pass">PASS</td>
+          </tr>
+          <tr>
+            <td>Unused JS removed</td>
+            <td>—</td>
+            <td>~256KB</td>
+            <td class="pass">DONE</td>
+          </tr>
+          <tr>
+            <td>Script blocking</td>
+            <td>All synchronous</td>
+            <td>All deferred</td>
+            <td class="pass">PASS</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="outcome-box">
+        <h4>Summary of changes</h4>
+        <ul>
+          <li>Fonts: render-blocking → async preload with noscript fallback</li>
+          <li>Removed 4 unused vendor JS bundles and 2 unused vendor CSS files</li>
+          <li>Added <code>defer</code> to all 7 remaining script tags</li>
+          <li>1.2KB of critical CSS inlined in <code>&lt;head&gt;</code></li>
+          <li>Logo: PNG → WebP with <code>&lt;picture&gt;</code> fallback, lazy-loaded</li>
+          <li>main.css −30%, custom.css −23%, main.js −33%</li>
+        </ul>
+      </div>
+
+      <h2>What I Learned</h2>
+
+      <div class="lesson-box">
+        <p><strong>Fix fonts first.</strong> Render-blocking Google Fonts is the most common cause of slow LCP on small sites. It is also the easiest fix. The preload trick takes five minutes to implement.</p>
+      </div>
+
+      <div class="lesson-box">
+        <p><strong>Audit your vendor includes.</strong> Every project I have reviewed has at least one library that is loaded but unused. These accumulate when features are removed but their dependencies are not. A 10-minute search can remove hundreds of kilobytes.</p>
+      </div>
+
+      <div class="lesson-box">
+        <p><strong><code>defer</code> on script tags is a one-line win.</strong> It improves load performance on every script in the page. There is almost no reason not to do it. The only exception is scripts that must run before the DOM is ready, which is rare.</p>
+      </div>
+
+      <div class="lesson-box">
+        <p><strong>Inline only the critical CSS, not everything.</strong> You do not need to inline your entire stylesheet. Inline only the styles for what the user sees on first load: the hero section, the nav, and any preloader. The rest can load from an external file.</p>
+      </div>
+
+    </div>
+
+    <footer class="article-footer">
+      <a href="automating-operations.html"><i class="bi bi-arrow-left"></i> Previous: Automating Operations</a>
+      <a href="/blog/">All articles <i class="bi bi-arrow-right"></i></a>
+    </footer>
+
+  </article>
+</body>
+</html>

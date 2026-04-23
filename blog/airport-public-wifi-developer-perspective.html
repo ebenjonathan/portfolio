@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Data. No Money. Stuck Abroad. | Jonathan Mupini</title>
+  <meta name="description" content="A real airport incident that became a systems lesson: OTP dependency chains, captive portals, HTTP vs HTTPS behavior, and practical debugging steps for public WiFi.">
+  <link rel="canonical" href="https://www.mupinilabs.com/blog/airport-public-wifi-developer-perspective.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.mupinilabs.com/blog/airport-public-wifi-developer-perspective.html">
+  <meta property="og:title" content="No Data. No Money. Stuck Abroad.">
+  <meta property="og:description" content="A cascading dependency failure in the physical world: banking OTP, email access, roaming, captive portals, and public WiFi debugging.">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Ever been stuck offline in a foreign place?",
+    "author": {"@type": "Person", "name": "Jonathan Mupini", "url": "https://www.mupinilabs.com/"},
+    "datePublished": "2026-01-15",
+    "publisher": {"@type": "Person", "name": "Jonathan Mupini"}
+  }
+  </script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"></noscript>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{--acc:#0071e3;--text:#1d1d1f;--muted:#6e6e73;--border:#e8e8ed;--bg-alt:#f5f5f7}
+    *,*::before,*::after{box-sizing:border-box;min-width:0}
+    html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:var(--text);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6}
+    a{color:var(--acc);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .blog-nav{position:sticky;top:0;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;z-index:100}
+    .blog-nav .brand{font-weight:700;font-size:1rem;color:var(--text)}
+    .blog-nav .brand:hover{text-decoration:none;color:var(--acc)}
+    .blog-nav .nav-links{display:flex;gap:1.5rem;font-size:.875rem}
+    .blog-nav .nav-links a{color:var(--muted);font-weight:500}
+    .blog-nav .nav-links a:hover{color:var(--acc);text-decoration:none}
+    .article-wrap{max-width:720px;margin:0 auto;padding:3rem 1.5rem 5rem}
+    .tag{display:inline-block;background:rgba(0,113,227,.09);color:var(--acc);border-radius:980px;padding:.2rem .7rem;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+    .article-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.25rem}
+    .article-title{font-size:clamp(1.8rem,5vw,2.5rem);font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1.2;margin:0 0 .75rem}
+    .article-meta{font-size:.82rem;color:var(--muted);margin-bottom:2.5rem;display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border);padding-bottom:1.5rem}
+    .article-meta span{display:inline-flex;align-items:center;gap:.3rem}
+    .article-body h2{font-size:1.25rem;font-weight:700;color:var(--text);margin:2.5rem 0 .75rem;letter-spacing:-.02em}
+    .article-body h3{font-size:1.05rem;font-weight:700;color:var(--text);margin:1.75rem 0 .5rem}
+    .article-body p{margin:0 0 1.25rem;color:#3a3a3c;font-size:1rem;line-height:1.8}
+    .article-body ul,.article-body ol{padding-left:1.4rem;margin:0 0 1.25rem}
+    .article-body li{color:#3a3a3c;font-size:1rem;line-height:1.75;margin-bottom:.4rem}
+    .article-body strong{color:var(--text);font-weight:600}
+    .article-body code{background:var(--bg-alt);border:1px solid var(--border);border-radius:5px;padding:.1rem .35rem;font-size:.85em;font-family:'Menlo','Monaco','Consolas',monospace;color:#c41a16}
+    .article-body pre{background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;overflow-x:auto;margin:0 0 1.5rem}
+    .article-body pre code{background:none;border:none;padding:0;color:var(--text);font-size:.84rem;line-height:1.65}
+    .lesson-box{border-left:3px solid var(--acc);padding:.75rem 1.25rem;background:rgba(0,113,227,.04);border-radius:0 8px 8px 0;margin:1.5rem 0}
+    .lesson-box p{color:#3a3a3c;margin:0;font-size:.95rem;line-height:1.75}
+    .article-footer{border-top:1px solid var(--border);padding-top:2rem;margin-top:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .article-footer a{display:inline-flex;align-items:center;gap:.35rem;font-size:.875rem;font-weight:600;color:var(--acc)}
+    .article-footer a:hover{text-decoration:none;opacity:.8}
+    @media(max-width:600px){.article-wrap{padding:2rem 1rem 3.5rem}.blog-nav{padding:.65rem 1rem}}
+  </style>
+</head>
+<body>
+  <nav class="blog-nav">
+    <a href="/" class="brand">Jonathan Mupini</a>
+    <div class="nav-links">
+      <a href="/">Portfolio</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-wrap">
+
+    <div class="article-tags">
+      <span class="tag">Networking</span>
+      <span class="tag">Public WiFi</span>
+      <span class="tag">Systems Thinking</span>
+    </div>
+
+    <h1 class="article-title">No Data. No Money. Stuck Abroad.</h1>
+
+    <div class="article-meta">
+      <span><i class="bi bi-person"></i> Jonathan Mupini</span>
+      <span><i class="bi bi-calendar3"></i> September 2025</span>
+      <span><i class="bi bi-clock"></i> 8 min read</span>
+    </div>
+
+    <div class="article-body">
+
+      <p>In 2022, on my first flight out of Zimbabwe to South Africa, I experienced one of those situations that quietly exposes how fragile our digital dependency is.</p>
+
+      <p>My Mastercard was not working. Mobile roaming failed. I could not contact my uncle who was supposed to pick me up. And all my funds were behind an OTP system that required email access I could not reach.</p>
+
+      <p>I was effectively stranded.</p>
+
+      <p>So I did what developers naturally do. I started debugging the system.</p>
+
+      <h2>The System Failure</h2>
+
+      <p>At a high level, this is what broke down:</p>
+
+      <pre><code>[ Bank Account ]
+      ↓ (OTP via email)
+[ Email Access ] X No internet
+      ↓
+[ Mobile Roaming ] X Failed
+      ↓
+[ Airport Pickup ] X No communication
+      ↓
+[ Physical World Problem ]</code></pre>
+
+      <p>This was not just a travel issue. It was a cascading dependency failure in a connected system. One missing layer broke everything.</p>
+
+      <h2>First Attempts (and Failures)</h2>
+
+      <p>I tried the obvious solutions:</p>
+
+      <h3>1. Mobile Roaming</h3>
+      <ul>
+        <li>Enabled roaming</li>
+        <li>No connection</li>
+      </ul>
+
+      <h3>2. Cafe WiFi</h3>
+      <ul>
+        <li>Weak signal outside</li>
+        <li>Encrypted network with client-only access</li>
+      </ul>
+
+      <pre><code>[Cafe WiFi]
+     |-- Strong inside only X
+     |-- Auth required X
+     `-- Not accessible X</code></pre>
+
+      <p>At this point, I had connectivity options, but none were usable.</p>
+
+      <h2>The Hidden Layer: Captive Portals</h2>
+
+      <p>Most public WiFi networks are not open internet. They are controlled networks that require authentication before granting access. This system is called a captive portal.</p>
+
+      <h3>Typical flow</h3>
+      <pre><code>Device connects to WiFi
+        ↓
+Gets IP address
+        ↓
+But internet is blocked
+        ↓
+Redirected to login page (captive portal)
+        ↓
+User authenticates
+        ↓
+Internet granted</code></pre>
+
+      <p>Sometimes the redirect never triggers automatically. That is where most users get stuck.</p>
+
+      <h2>The Breakthrough: Forcing the Portal</h2>
+
+      <p>I remembered two tools that force captive portal detection:</p>
+      <ul>
+        <li><a href="http://neverssl.com" target="_blank" rel="noopener noreferrer">http://neverssl.com</a></li>
+        <li><a href="http://detectportal.firefox.com" target="_blank" rel="noopener noreferrer">http://detectportal.firefox.com</a></li>
+      </ul>
+
+      <h2>Why This Works (Technical Explanation)</h2>
+
+      <h3>1. HTTP vs HTTPS behavior</h3>
+      <p>Modern browsers default to HTTPS, which is secure and does not allow interception easily. Captive portals rely on intercepting unsecured HTTP traffic.</p>
+
+      <pre><code>HTTPS request
+-------------
+Browser -> Encrypted -> Server
+X Cannot be intercepted easily
+
+HTTP request
+------------
+Browser -> Plain text -> Network -> Redirect possible
+OK Captive portal can hijack this</code></pre>
+
+      <h3>2. neverssl.com</h3>
+      <p>This endpoint is always HTTP, has no HTTPS fallback, and avoids automatic redirects. That makes it ideal for triggering captive portals.</p>
+
+      <pre><code>User opens site
+      ↓
+Network intercepts HTTP request
+      ↓
+Redirects to WiFi login portal
+      ↓
+Login page appears</code></pre>
+
+      <h3>3. detectportal.firefox.com</h3>
+      <p>This URL is used by Firefox and many operating systems for connectivity checks. If it gets redirected, the device detects a captive portal and launches login UI.</p>
+
+      <pre><code>Device -> Test URL request
+        ↓
+If redirected -> Captive portal detected
+        ↓
+System triggers login UI</code></pre>
+
+      <h2>What Happened Next</h2>
+
+      <p>Once I used one of these URLs, the captive portal finally appeared. I was able to log into airport WiFi, access my mobile carrier portal, reactivate international roaming, restore email access, resolve OTP authentication, and contact my uncle.</p>
+
+      <p>System restored.</p>
+
+      <h2>Architecture Lesson: Dependency Chains in Real Life</h2>
+
+      <p>This incident looked like a travel problem, but it was actually a distributed system failure across identity, connectivity, and authentication layers.</p>
+
+      <pre><code>Identity (Bank)
+    ↓
+Authentication (OTP via Email)
+    ↓
+Network Access (Mobile / WiFi)
+    ↓
+Captive Portal System
+    ↓
+Physical coordination (pickup, travel)</code></pre>
+
+      <p>One broken node collapsed the entire system.</p>
+
+      <h2>Practical Guide: Connecting to Public WiFi (Developer Checklist)</h2>
+
+      <ol>
+        <li>Connect to WiFi even if it shows No Internet.</li>
+        <li>Force HTTP traffic with <a href="http://neverssl.com" target="_blank" rel="noopener noreferrer">http://neverssl.com</a>.</li>
+        <li>Trigger OS captive detection with <a href="http://detectportal.firefox.com" target="_blank" rel="noopener noreferrer">http://detectportal.firefox.com</a>.</li>
+        <li>Complete portal login: accept terms, enter voucher or OTP if required, and authenticate session.</li>
+        <li>Avoid HTTPS sites during login phase because they often block portal redirection.</li>
+      </ol>
+
+      <h2>Mental Model for Developers</h2>
+
+      <pre><code>[ WiFi Network ]
+      ↓
+[ Firewall Layer ]
+      ↓
+[ Captive Portal Gatekeeper ]
+      ↓
+[ Internet Access ]</code></pre>
+
+      <p>You are never online immediately. You are connected to a network, but not yet authorized.</p>
+
+      <h2>Key Takeaway</h2>
+
+      <div class="lesson-box">
+        <p>Public WiFi is usually not broken when it does not work immediately. It is often waiting for you to trigger the correct authentication path. Sometimes the simplest debugging tool is knowing how to generate the right HTTP request.</p>
+      </div>
+
+    </div>
+
+    <footer class="article-footer">
+      <a href="automating-operations.html"><i class="bi bi-arrow-left"></i> Previous: Automating Operations</a>
+      <a href="/blog/">All articles <i class="bi bi-arrow-right"></i></a>
+    </footer>
+
+  </article>
+</body>
+</html>

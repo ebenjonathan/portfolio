@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I Automated My Job… And It Actually Worked | Jonathan Mupini</title>
+  <meta name="description" content="I automated weekly email campaigns, booking follow-ups, monthly reporting, and chatbot routing at Traverze Travel using Python and scheduled scripts.">
+  <link rel="canonical" href="https://www.mupinilabs.com/blog/automating-operations.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.mupinilabs.com/blog/automating-operations.html">
+  <meta property="og:title" content="I Automated My Job… And It Actually Worked">
+  <meta property="og:description" content="I automated weekly email campaigns, booking follow-ups, monthly reporting, and chatbot routing at Traverze Travel using Python and scheduled scripts.">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How I Automated Repetitive Operations at a Travel Company",
+    "author": {"@type": "Person", "name": "Jonathan Mupini", "url": "https://www.mupinilabs.com/"},
+    "datePublished": "2026-02-18",
+    "publisher": {"@type": "Person", "name": "Jonathan Mupini"}
+  }
+  </script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"></noscript>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{--acc:#0071e3;--text:#1d1d1f;--muted:#6e6e73;--border:#e8e8ed;--bg-alt:#f5f5f7}
+    *,*::before,*::after{box-sizing:border-box;min-width:0}
+    html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:var(--text);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6}
+    a{color:var(--acc);text-decoration:none}
+    a:hover{text-decoration:underline}
+    img,picture{max-width:100%;height:auto}
+    .blog-nav{position:sticky;top:0;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;z-index:100}
+    .blog-nav .brand{font-weight:700;font-size:1rem;color:var(--text)}
+    .blog-nav .brand:hover{text-decoration:none;color:var(--acc)}
+    .blog-nav .nav-links{display:flex;gap:1.5rem;font-size:.875rem}
+    .blog-nav .nav-links a{color:var(--muted);font-weight:500}
+    .blog-nav .nav-links a:hover{color:var(--acc);text-decoration:none}
+    .article-wrap{max-width:720px;margin:0 auto;padding:3rem 1.5rem 5rem}
+    .tag{display:inline-block;background:rgba(0,113,227,.09);color:var(--acc);border-radius:980px;padding:.2rem .7rem;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+    .article-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.25rem}
+    .article-title{font-size:clamp(1.8rem,5vw,2.5rem);font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1.2;margin:0 0 .75rem}
+    .article-meta{font-size:.82rem;color:var(--muted);margin-bottom:2.5rem;display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border);padding-bottom:1.5rem}
+    .article-meta span{display:inline-flex;align-items:center;gap:.3rem}
+    .article-body h2{font-size:1.25rem;font-weight:700;color:var(--text);margin:2.5rem 0 .75rem;letter-spacing:-.02em}
+    .article-body h3{font-size:1.05rem;font-weight:700;color:var(--text);margin:1.75rem 0 .5rem}
+    .article-body p{margin:0 0 1.25rem;color:#3a3a3c;font-size:1rem;line-height:1.8}
+    .article-body ul,.article-body ol{padding-left:1.4rem;margin:0 0 1.25rem}
+    .article-body li{color:#3a3a3c;font-size:1rem;line-height:1.75;margin-bottom:.4rem}
+    .article-body strong{color:var(--text);font-weight:600}
+    .article-body code{background:var(--bg-alt);border:1px solid var(--border);border-radius:5px;padding:.1rem .35rem;font-size:.85em;font-family:'Menlo','Monaco','Consolas',monospace;color:#c41a16}
+    .article-body pre{background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;overflow-x:auto;margin:0 0 1.5rem}
+    .article-body pre code{background:none;border:none;padding:0;color:var(--text);font-size:.84rem;line-height:1.65}
+    .outcome-box{background:var(--bg-alt);border:1.5px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;margin:2rem 0}
+    .outcome-box h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin:0 0 .85rem}
+    .outcome-box ul{margin:0;padding-left:1.2rem}
+    .outcome-box li{font-size:.9rem;color:#3a3a3c;margin-bottom:.4rem;line-height:1.6}
+    .lesson-box{border-left:3px solid var(--acc);padding:.75rem 1.25rem;background:rgba(0,113,227,.04);border-radius:0 8px 8px 0;margin:1.5rem 0}
+    .lesson-box p{color:#3a3a3c;margin:0;font-size:.95rem;line-height:1.75}
+    .article-footer{border-top:1px solid var(--border);padding-top:2rem;margin-top:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .article-footer a{display:inline-flex;align-items:center;gap:.35rem;font-size:.875rem;font-weight:600;color:var(--acc)}
+    .article-footer a:hover{text-decoration:none;opacity:.8}
+    @media(max-width:600px){.article-wrap{padding:2rem 1rem 3.5rem}.blog-nav{padding:.65rem 1rem}}
+  </style>
+</head>
+<body>
+  <nav class="blog-nav">
+    <a href="/" class="brand">Jonathan Mupini</a>
+    <div class="nav-links">
+      <a href="/">Portfolio</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-wrap">
+
+    <div class="article-tags">
+      <span class="tag">Automation</span>
+      <span class="tag">Python</span>
+      <span class="tag">CRM</span>
+    </div>
+
+    <h1 class="article-title">I Automated My Job… And It Actually Worked</h1>
+
+    <div class="article-meta">
+      <span><i class="bi bi-person"></i> Jonathan Mupini</span>
+      <span><i class="bi bi-calendar3"></i> October 2025</span>
+      <span><i class="bi bi-clock"></i> 5 min read</span>
+    </div>
+
+    <div class="article-body">
+
+      <p>When I joined Traverze Travel as an ICT intern, the marketing team sent weekly email campaigns by hand. Every Monday morning, one person spent three to four hours on this. They exported a contacts list from the CRM, cleaned it, uploaded it to the email tool, configured the send, and clicked send.</p>
+
+      <p>If they were sick or on leave, the campaign did not go out.</p>
+
+      <h2>The First Automation: Monday Email Campaigns</h2>
+
+      <p>I mapped out every step of the Monday process:</p>
+
+      <ol>
+        <li>Export active contacts from the CRM (CSV download)</li>
+        <li>Remove duplicates and unsubscribed contacts</li>
+        <li>Fix formatting inconsistencies in the CSV</li>
+        <li>Upload the cleaned list to the email tool</li>
+        <li>Set the subject line, sender name, and scheduled send time</li>
+        <li>Click send</li>
+      </ol>
+
+      <p>Every step was repeatable. None of it required a human decision.</p>
+
+      <p>I wrote a Python script that ran every Monday at 7:45 AM via a cron job on a Linux VPS:</p>
+
+      <pre><code>import schedule
+import time
+from crm_client import get_active_contacts
+from email_api import schedule_campaign
+
+def run_weekly_campaign():
+    contacts = get_active_contacts(exclude_unsubscribed=True)
+    deduplicated = deduplicate_by_email(contacts)
+    campaign_id = schedule_campaign(
+        contacts=deduplicated,
+        subject="This week at Traverze",
+        send_at="08:00"
+    )
+    log(f"Campaign {campaign_id} scheduled for {len(deduplicated)} contacts")
+
+schedule.every().monday.at("07:45").do(run_weekly_campaign)
+
+while True:
+    schedule.run_pending()
+    time.sleep(30)</code></pre>
+
+      <p>The script logged every run. Contact count, campaign ID, API response status, and any errors all went to a log file. Silent failures are harder to debug than logged ones.</p>
+
+      <h2>Going Further</h2>
+
+      <p>Once the Monday campaign was running without human input, I looked at what else was eating time.</p>
+
+      <h3>Booking confirmation follow-ups</h3>
+      <p>After a booking was confirmed, staff manually sent reminder emails at 24 hours and 48 hours before the travel date. This happened about 60% of the time. The other 40% was forgotten. I scripted this using the booking database. Any confirmed booking within 48 hours of its start date triggered an automated email. Consistency went from 60% to 100%.</p>
+
+      <h3>Monthly reporting</h3>
+      <p>At the end of each month, one team member spent half a day pulling figures from the spreadsheet and writing a PDF summary for the director. I wrote a Python script using <code>reportlab</code> that queried the database and generated the PDF on the first of each month. Preparation time dropped from four hours to under two minutes.</p>
+
+      <h3>Chatbot routing</h3>
+      <p>Later, in my role as Digital Officer, I connected the website chat widget to the CRM. Incoming inquiries were tagged automatically by type, flight, accommodation, or tour, based on keywords in the opening message. Each type routed to the right team member. Average first response time dropped from several hours to under 15 minutes.</p>
+
+      <h2>Results</h2>
+
+      <div class="outcome-box">
+        <h4>Outcomes</h4>
+        <ul>
+          <li>Weekly email campaign: 3–4 hours of manual work → fully automated</li>
+          <li>Booking follow-up consistency: ~60% manual → 100% automated</li>
+          <li>Monthly report preparation: 4 hours → under 2 minutes</li>
+          <li>Chat inquiry response time: hours → under 15 minutes</li>
+          <li>Team hours recovered per week: 10+</li>
+        </ul>
+      </div>
+
+      <h2>What I Learned</h2>
+
+      <div class="lesson-box">
+        <p><strong>Automate the most boring task first.</strong> The Monday email campaign was what the team complained about most. Solving that one thing made every conversation about automation easier after.</p>
+      </div>
+
+      <div class="lesson-box">
+        <p><strong>Always log what automated scripts do.</strong> A cron job that fails silently can go unnoticed for weeks. Every script I write logs what it did, what it skipped, and any errors. I check the log on the first run of a new script and then weekly after that.</p>
+      </div>
+
+      <div class="lesson-box">
+        <p><strong>Test with real data early.</strong> The CRM exported contact records with inconsistent date formats across different record types. I found this on the second real run, not in testing. I now always test with a sample of real production data before deploying.</p>
+      </div>
+
+      <div class="lesson-box">
+        <p><strong>Document what the script does in plain language.</strong> Six months after I wrote the Monday script, a new team member needed to understand it. The code was fine. The README was the useful part. A one-paragraph description of what the script does and what happens if it fails is worth more than inline comments.</p>
+      </div>
+
+    </div>
+
+    <footer class="article-footer">
+      <a href="building-a-travel-booking-system.html"><i class="bi bi-arrow-left"></i> Previous: Booking System</a>
+      <a href="/projects/xdr-wazuh.html">Related case study: XDR Security <i class="bi bi-box-arrow-up-right"></i></a>
+      <a href="web-performance-lcp-optimization.html">Next: LCP Optimization <i class="bi bi-arrow-right"></i></a>
+    </footer>
+
+  </article>
+</body>
+</html>

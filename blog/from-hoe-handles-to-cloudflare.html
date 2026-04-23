@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>This Simple Trick Gets You Free Custom Email | Jonathan Mupini</title>
+  <meta name="description" content="A personal story from family farming roots to setting up free custom email with Cloudflare for a modernized agricultural operation.">
+  <link rel="canonical" href="https://www.mupinilabs.com/blog/from-hoe-handles-to-cloudflare.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.mupinilabs.com/blog/from-hoe-handles-to-cloudflare.html">
+  <meta property="og:title" content="This Simple Trick Gets You Free Custom Email">
+  <meta property="og:description" content="How I set up free custom domain email using Cloudflare for my family's farm and turned legacy into modern digital operations.">
+  <meta property="og:image" content="https://www.mupinilabs.com/assets/img/mupinilabs-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="This Simple Trick Gets You Free Custom Email">
+  <meta name="twitter:description" content="How I set up free custom domain email using Cloudflare for my family's farm and turned legacy into modern digital operations.">
+  <meta name="twitter:image" content="https://www.mupinilabs.com/assets/img/mupinilabs-logo.png">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "A trick to get free custom emails",
+    "author": {"@type": "Person", "name": "Jonathan Mupini", "url": "https://www.mupinilabs.com/"},
+    "datePublished": "2026-03-23",
+    "publisher": {"@type": "Person", "name": "Jonathan Mupini"}
+  }
+  </script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"></noscript>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{--acc:#0071e3;--text:#1d1d1f;--muted:#6e6e73;--border:#e8e8ed;--bg-alt:#f5f5f7}
+    *,*::before,*::after{box-sizing:border-box;min-width:0}
+    html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:var(--text);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6}
+    a{color:var(--acc);text-decoration:none}
+    a:hover{text-decoration:underline}
+    img,picture{max-width:100%;height:auto}
+    .blog-nav{position:sticky;top:0;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;z-index:100}
+    .blog-nav .brand{font-weight:700;font-size:1rem;color:var(--text)}
+    .blog-nav .brand:hover{text-decoration:none;color:var(--acc)}
+    .blog-nav .nav-links{display:flex;gap:1.5rem;font-size:.875rem}
+    .blog-nav .nav-links a{color:var(--muted);font-weight:500}
+    .blog-nav .nav-links a:hover{color:var(--acc);text-decoration:none}
+    .article-wrap{max-width:760px;margin:0 auto;padding:3rem 1.5rem 5rem}
+    .tag{display:inline-block;background:rgba(0,113,227,.09);color:var(--acc);border-radius:980px;padding:.2rem .7rem;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+    .article-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.25rem}
+    .article-title{font-size:clamp(1.9rem,5vw,2.7rem);font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1.2;margin:0 0 .75rem}
+    .article-meta{font-size:.82rem;color:var(--muted);margin-bottom:2.5rem;display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border);padding-bottom:1.5rem}
+    .article-meta span{display:inline-flex;align-items:center;gap:.3rem}
+    .article-body h2{font-size:1.28rem;font-weight:700;color:var(--text);margin:2.5rem 0 .75rem;letter-spacing:-.02em}
+    .article-body h3{font-size:1.06rem;font-weight:700;color:var(--text);margin:1.75rem 0 .5rem}
+    .article-body p{margin:0 0 1.2rem;color:#3a3a3c;font-size:1rem;line-height:1.8}
+    .article-body ul,.article-body ol{padding-left:1.35rem;margin:0 0 1.25rem}
+    .article-body li{color:#3a3a3c;font-size:1rem;line-height:1.75;margin-bottom:.4rem}
+    .article-body strong{color:var(--text);font-weight:600}
+    .note-box{background:var(--bg-alt);border:1.5px solid var(--border);border-radius:14px;padding:1.3rem 1.4rem;margin:1.8rem 0}
+    .note-box h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin:0 0 .85rem}
+    .article-footer{border-top:1px solid var(--border);padding-top:2rem;margin-top:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .article-footer a{display:inline-flex;align-items:center;gap:.35rem;font-size:.875rem;font-weight:600;color:var(--acc)}
+    .article-footer a:hover{text-decoration:none;opacity:.8}
+    @media(max-width:600px){.article-wrap{padding:2rem 1rem 3.5rem}.blog-nav{padding:.65rem 1rem}}
+  </style>
+</head>
+<body>
+  <nav class="blog-nav">
+    <a href="/" class="brand">Jonathan Mupini</a>
+    <div class="nav-links">
+      <a href="/">Portfolio</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-wrap">
+
+    <div class="article-tags">
+      <span class="tag">Family Legacy</span>
+      <span class="tag">Cloudflare</span>
+      <span class="tag">Email Setup</span>
+    </div>
+
+    <h1 class="article-title">This Simple Trick Gets You Free Custom Email</h1>
+
+    <div class="article-meta">
+      <span><i class="bi bi-person"></i> Jonathan Mupini</span>
+      <span><i class="bi bi-calendar3"></i> January 2026</span>
+      <span><i class="bi bi-clock"></i> 8 min read</span>
+    </div>
+
+    <div class="article-body">
+
+      <p>My surname, "Mupini", carries a bit of old-school craftsmanship in it. It is believed to trace back to a Swahili word meaning the handle.</p>
+
+      <p>Growing up, every visit to my grandparents' farm turned into a history session you did not ask for but could not escape. They would sit us down and tell us about our great great grandfather. According to family legend, he was that guy. A blacksmith and farmer who made handles for everything: hoes, sickles, machetes, axes, knives, you name it. If it needed a handle, he probably built it.</p>
+
+      <p>They say people started calling him Mpini because of his craft. Over time, as languages shifted and the Rozvi influence kicked in, Mpini slowly became Mupini. The man was eventually rewarded with a large piece of land in Chiwara where he farmed and built his legacy.</p>
+
+      <p>Fast forward to today, the farming DNA is still there. My uncle, now running the same family land, decided it was time to bring it back to life with large scale farming. He started applying for grants and funding to revive operations.</p>
+
+      <h2>That is where things got interesting</h2>
+
+      <p>He hit a modern problem our great great grandfather definitely did not prepare us for: he needed a custom email address.</p>
+
+      <p>No Gmail. No Yahoo. A proper we are serious farmers with paperwork email.</p>
+
+      <p>And naturally, the family IT department is me.</p>
+
+      <p>Most people would just pay Google Workspace or Microsoft 365 around 6 to 12 dollars a month just for this. But I knew there was a cleaner, cheaper way. So I did what any responsible tech cousin does. I went digging.</p>
+
+      <p>Here is exactly how I set it up using Cloudflare, and how you can do it too.</p>
+
+      <h2>How I set up a free custom email using Cloudflare</h2>
+
+      <h3>Step 1: Get a domain name</h3>
+
+      <p>You need your own domain first.</p>
+      <ul>
+        <li>Buy one from Namecheap, GoDaddy, Porkbun, etc.</li>
+        <li>Expect 10 to 15 dollars per year for .com domains.</li>
+        <li>Cheaper options like .xyz or .site can go as low as 2 to 5 dollars per year.</li>
+        <li>If you are a student, GitHub Student Pack sometimes gives free domains.</li>
+      </ul>
+
+      <p>Example: mupinifarms.com or yourbrand.com.</p>
+
+      <h3>Step 2: Add the domain to Cloudflare</h3>
+
+      <p>This is where the magic starts.</p>
+      <ol>
+        <li>Create a free account at cloudflare.com.</li>
+        <li>Click Add a site and enter your domain.</li>
+        <li>Cloudflare will scan your DNS records.</li>
+        <li>It will then give you two nameservers.</li>
+        <li>Go to your domain registrar and replace your default nameservers with Cloudflare's.</li>
+        <li>Wait a few minutes for it to propagate.</li>
+      </ol>
+
+      <p>At this point, Cloudflare is basically controlling your domain traffic.</p>
+
+      <h3>Step 3: Enable Email Routing</h3>
+
+      <p>Now we turn your domain into an email system.</p>
+      <ol>
+        <li>Go to Cloudflare dashboard.</li>
+        <li>Open Email, then Email Routing.</li>
+        <li>Click Get Started.</li>
+        <li>Add your real Gmail as the destination inbox.</li>
+        <li>Confirm via the email Cloudflare sends you.</li>
+      </ol>
+
+      <p>This step basically tells Cloudflare: anything sent to this domain, forward it to my Gmail.</p>
+
+      <h3>Step 4: Create your custom email addresses</h3>
+
+      <p>This is the fun part.</p>
+      <ol>
+        <li>Go back to Email Routing.</li>
+        <li>Click Create address.</li>
+        <li>Add emails like:
+          <ul>
+            <li>info@yourdomain.com</li>
+            <li>contact@yourdomain.com</li>
+            <li>sales@yourdomain.com</li>
+            <li>hello@yourdomain.com</li>
+          </ul>
+        </li>
+        <li>Point them all to your Gmail.</li>
+      </ol>
+
+      <p>You can create unlimited addresses for free.</p>
+
+      <p>So now my uncle's farm suddenly had contact@mupinifarms.com.</p>
+      <p>Instant upgrade from small family farm to we might have investors.</p>
+
+      <h3>Step 5: Send emails from your custom address (optional but powerful)</h3>
+
+      <p>Receiving emails is easy. Sending from your custom domain is what makes it look professional.</p>
+
+      <p>In Gmail:</p>
+      <ol>
+        <li>Go to Settings, then See all settings.</li>
+        <li>Open Accounts and Import.</li>
+        <li>Under Send mail as, click Add another email.</li>
+        <li>Enter your name and custom email.</li>
+        <li>When asked for SMTP details use:
+          <ul>
+            <li>SMTP server: smtp.gmail.com</li>
+            <li>Port: 587</li>
+            <li>Username: your full Gmail address</li>
+            <li>Password: Google App Password (not your normal password)</li>
+          </ul>
+        </li>
+      </ol>
+
+      <p>To get that App Password:</p>
+      <ol>
+        <li>Go to Google Account settings.</li>
+        <li>Enable 2-Step Verification.</li>
+        <li>Generate an App Password under Security.</li>
+      </ol>
+
+      <p>Confirm the code sent to your email and you are done.</p>
+      <p>Now you can send emails that look like they came from your domain.</p>
+
+      <h3>Step 6: DNS and security check (automatic)</h3>
+
+      <p>Cloudflare handles most of this automatically.</p>
+      <ul>
+        <li>SPF is set up for email forwarding.</li>
+        <li>DKIM and DMARC records are configured automatically.</li>
+        <li>You can verify in Cloudflare under DNS records.</li>
+      </ul>
+
+      <p>This is what helps emails not look like spam.</p>
+
+      <h2>The result</h2>
+
+      <p>My uncle now receives emails like contact@mupinifarms.com straight into his Gmail inbox.</p>
+
+      <p>He can reply professionally, apply for grants properly, and suddenly the farm looks like a structured agricultural business instead of a WhatsApp-only operation.</p>
+
+      <div class="note-box">
+        <h4>Cost</h4>
+        <p>Basically 0 dollars per month. Just the domain fee per year.</p>
+      </div>
+
+      <h2>Important reality check</h2>
+
+      <ul>
+        <li>Cloudflare does not give you a mailbox, it just forwards emails.</li>
+        <li>Gmail sending limits apply, around 500 emails per day.</li>
+        <li>Some emails may land in spam initially until reputation builds.</li>
+        <li>Not ideal for large companies or high-volume email systems.</li>
+      </ul>
+
+      <p>But for freelancers, startups, side projects, and yes, family farms trying to modernize, it is perfect.</p>
+
+      <p>So yeah, somewhere between ancient blacksmith ancestors making hoe handles in Chiwara and modern Cloudflare DNS records, I somehow ended up upgrading my uncle's farm into a digitally branded operation.</p>
+
+      <p><strong>Same family legacy. Just a slightly more WiFi-enabled version.</strong></p>
+
+    </div>
+
+    <footer class="article-footer">
+      <a href="/blog/"><i class="bi bi-arrow-left"></i> All articles</a>
+      <a href="ai-tender-automation.html">Previous: AI Tender Automation <i class="bi bi-arrow-right"></i></a>
+    </footer>
+
+  </article>
+</body>
+</html>

@@ -1,0 +1,237 @@
+:root {
+  --bg: #fff7d6;
+  --paper: #ffffff;
+  --ink: #212121;
+  --muted: #575757;
+  --accent: #ffdd00;
+  --accent-dark: #f1cc00;
+  --border: #1d1d1d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Nunito", "Segoe UI", Arial, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 85% 10%, #ffe55b 0, #ffe55b 12%, transparent 13%),
+    radial-gradient(circle at 8% 20%, #ffd0c4 0, #ffd0c4 10%, transparent 11%),
+    linear-gradient(165deg, #fff7d6 0%, #fff9e5 55%, #fff4c8 100%);
+}
+
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1.2rem 1rem 3rem;
+}
+
+.hero h1 {
+  font-family: "Baloo 2", "Nunito", sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0.6rem 0 0.25rem;
+  line-height: 1.05;
+}
+
+.hero p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  background: #101010;
+  color: #ffef9c;
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.api-link {
+  color: #151515;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px solid #151515;
+}
+
+.card {
+  background: var(--paper);
+  border: 2px solid var(--border);
+  border-radius: 18px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 8px 0 #1f1f1f;
+}
+
+form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+label {
+  display: grid;
+  gap: 0.45rem;
+  font-weight: 700;
+}
+
+input[type="text"],
+input[type="file"],
+textarea {
+  border: 2px solid #1f1f1f;
+  border-radius: 14px;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.98rem;
+  font-family: inherit;
+  background: #fff;
+}
+
+textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.tall {
+  min-height: 240px;
+}
+
+.button-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+button {
+  width: fit-content;
+  border: 2px solid #121212;
+  border-radius: 999px;
+  padding: 0.64rem 0.95rem;
+  cursor: pointer;
+  font-size: 0.94rem;
+  font-weight: 800;
+  font-family: inherit;
+  background: var(--accent);
+  color: #111;
+}
+
+button:hover {
+  background: var(--accent-dark);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #f5f5f5;
+}
+
+.btn-dark {
+  background: #111;
+  color: #fff8d4;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+#authState {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.history-list li {
+  border: 2px solid #222;
+  border-radius: 12px;
+  padding: 0.65rem 0.75rem;
+  background: #fffdf1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.history-list button {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.84rem;
+}
+
+.meta-card p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+}
+
+.tab {
+  background: #fff6bf;
+}
+
+.tab.active {
+  background: #111;
+  color: #fff4bb;
+}
+
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+pre {
+  background: #131313;
+  color: #ffd;
+  border-radius: 14px;
+  padding: 1rem;
+  overflow: auto;
+  line-height: 1.45;
+  font-size: 0.86rem;
+}
+
+@media (max-width: 780px) {
+  .grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-grid {
+    grid-template-columns: 1fr;
+  }
+}

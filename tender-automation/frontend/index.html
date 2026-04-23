@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tender Automation Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <div class="hero-top">
+        <span class="badge">Demo Purposes Only</span>
+        <a class="api-link" id="apiDocsLink" href="#" target="_blank" rel="noopener noreferrer">API Docs</a>
+      </div>
+      <h1>AI Tender Automation Sandbox</h1>
+      <p>Upload a tender, review extracted sections, refine the output, and save as draft or final.</p>
+    </header>
+
+    <section class="card auth-card">
+      <h2>Reviewer Session</h2>
+      <div class="auth-grid">
+        <label>
+          Username
+          <input type="text" id="authUsername" placeholder="reviewer1">
+        </label>
+        <label>
+          Password
+          <input type="password" id="authPassword" placeholder="min 8 chars">
+        </label>
+      </div>
+      <div class="button-row">
+        <button type="button" id="registerBtn" class="btn-secondary">Register</button>
+        <button type="button" id="loginBtn">Login</button>
+        <button type="button" id="logoutBtn" class="btn-secondary" disabled>Logout</button>
+        <span id="authState">Not authenticated</span>
+      </div>
+    </section>
+
+    <section class="card intake-card">
+      <form id="uploadForm">
+        <label>
+          API Base URL
+          <input type="text" id="apiBase" value="http://127.0.0.1:8000" required>
+        </label>
+
+        <label>
+          Organization
+          <input type="text" name="organization" placeholder="TechLume" required>
+        </label>
+
+        <label>
+          Tender File
+          <input type="file" name="tender_file" required>
+        </label>
+
+        <div class="button-row">
+          <button type="submit">Process Tender</button>
+          <button type="button" id="saveDraftBtn" class="btn-secondary" disabled>Save Draft</button>
+          <button type="button" id="saveFinalBtn" class="btn-dark" disabled>Save Final</button>
+          <button type="button" id="refreshHistoryBtn" class="btn-secondary" disabled>Refresh History</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>My Review History</h2>
+      <ul id="historyList" class="history-list"></ul>
+    </section>
+
+    <section class="card meta-card">
+      <p><strong>Tender ID:</strong> <span id="tenderId">-</span></p>
+      <p><strong>Status:</strong> <span id="recordStatus">idle</span></p>
+      <p><strong>OCR Used:</strong> <span id="ocrUsed">-</span></p>
+    </section>
+
+    <section class="card workflow-card">
+      <div class="tabs">
+        <button class="tab active" data-tab="extracted">Extracted</button>
+        <button class="tab" data-tab="review">Needs Review</button>
+        <button class="tab" data-tab="final">Final Output</button>
+      </div>
+
+      <div class="panel active" id="panel-extracted">
+        <div class="grid-two">
+          <label>Company Details<textarea id="companyDetails"></textarea></label>
+          <label>Payment Terms<textarea id="paymentTerms"></textarea></label>
+          <label>Compliance Requirements<textarea id="complianceRequirements"></textarea></label>
+          <label>Service Scope<textarea id="serviceScope"></textarea></label>
+          <label>Submission Formats<textarea id="submissionFormats"></textarea></label>
+          <label>Extraction Notes<textarea id="notes"></textarea></label>
+        </div>
+      </div>
+
+      <div class="panel" id="panel-review">
+        <label>Needs Human Review (one item per line)
+          <textarea id="needsReview" class="tall"></textarea>
+        </label>
+      </div>
+
+      <div class="panel" id="panel-final">
+        <label>Final Output
+          <textarea id="finalOutput" class="tall"></textarea>
+        </label>
+        <label>Reviewer Notes
+          <textarea id="reviewerNotes"></textarea>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Response Log</h2>
+      <pre id="result">No run yet.</pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

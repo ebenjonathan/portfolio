@@ -1,37 +1,102 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Jonathan Mupini | Software Developer &amp; IT Consultant</title>
-  <meta content="Jonathan Mupini - Software Developer, IT Consultant, Networking Specialist based in Zimbabwe." name="description">
+  <title>Jonathan Mupini | Software Developer Zimbabwe</title>
+  <meta name="description" content="Software Developer and IT Consultant in Zimbabwe specializing in scalable systems, automation, and cloud deployments.">
   <meta content="software developer, IT consultant, networking, Zimbabwe, web development, React, Python" name="keywords">
+  <link rel="canonical" href="https://www.mupinilabs.com/" />
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.mupinilabs.com/">
+  <meta property="og:title" content="Jonathan Mupini | Software Developer Zimbabwe">
+  <meta property="og:description" content="Software Developer and IT Consultant in Zimbabwe specializing in scalable systems, automation, and cloud deployments.">
+  <meta property="og:image" content="https://www.mupinilabs.com/assets/img/mupinilabs-logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.mupinilabs.com/">
+  <meta name="twitter:title" content="Jonathan Mupini | Software Developer Zimbabwe">
+  <meta name="twitter:description" content="Software Developer and IT Consultant in Zimbabwe specializing in scalable systems, automation, and cloud deployments.">
+  <meta name="twitter:image" content="https://www.mupinilabs.com/assets/img/mupinilabs-logo.png">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jonathan Mupini",
+      "url": "https://www.mupinilabs.com/",
+      "jobTitle": [
+        "Software Developer",
+        "IT Consultant",
+        "Networking Specialist"
+      ],
+      "sameAs": [
+        "https://zw.linkedin.com/in/jonathanebenmupini",
+        "https://github.com/ebenjonathan"
+      ],
+      "knowsAbout": [
+        "JavaScript",
+        "React",
+        "Python",
+        "Node.js",
+        "REST API Integration",
+        "Workflow Automation",
+        "Cloud Deployments",
+        "Networking"
+      ]
+    }
+  </script>
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- DNS prefetch / preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 
-  <!-- Material Icons Outlined -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <!-- Async Google Fonts, non-blocking -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@400;500;600&family=Raleway:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@400;500;600&family=Raleway:wght@400;600;700;800&display=swap"></noscript>
+
+  <!-- Async Material Icons, non-blocking -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"></noscript>
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
   <!-- Custom Styles -->
   <link href="assets/css/custom.css" rel="stylesheet">
+
+  <!-- Critical CSS: hero above-fold, eliminates render-blocking flash -->
+  <style>
+    :root{--accent-color:#0071e3}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1d1d1f;-webkit-font-smoothing:antialiased}
+    h1,h2,h3,h4,h5,h6{color:#1d1d1f;font-family:'Raleway',sans-serif;margin-top:0}
+    .header{position:fixed;top:0;left:0;bottom:0;padding:0 15px;z-index:997;overflow-y:auto;min-width:160px;max-width:160px;background:rgba(255,255,255,.55);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border-right:1px solid rgba(232,232,237,.6);display:flex;flex-direction:column;justify-content:center}
+    @media(max-width:1199px){.header{background:#fff;width:300px;left:-100%;min-width:unset;max-width:unset}}
+    .header~main{margin-left:160px}
+    @media(max-width:1199px){.header~main{margin-left:0}}
+    .hero{background:#fff!important;min-height:100vh;display:flex;align-items:center;position:relative}
+    .hero .container{position:relative;z-index:1}
+    .hero img{display:none!important}
+    .hero p{font-size:1.25rem;color:#6e6e73;font-weight:400;margin:.5rem 0 0}
+    .hero .typed{color:#0071e3;font-weight:600}
+    .hero-links{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;justify-content:center}
+    .hero-link-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:980px;font-size:.9rem;font-weight:500;text-decoration:none;border:1.5px solid #0071e3;color:#0071e3;background:transparent}
+    #preloader{position:fixed;inset:0;z-index:9999;background:#fff}
+    .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+  </style>
 </head>
 
 <body class="index-page">
@@ -49,6 +114,7 @@
         <li><a href="#portfolio"><i class="bi bi-kanban navicon"></i><span>Portfolio</span></a></li>
         <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i><span>Services</span></a></li>
         <li><a href="#contact"><i class="bi bi-envelope navicon"></i><span>Contact</span></a></li>
+        <li><a href="/blog/"><i class="bi bi-journal-text navicon"></i><span>Blog</span></a></li>
       </ul>
     </nav>
 
@@ -62,7 +128,8 @@
       <div class="container" data-aos="zoom-out">
         <div class="row justify-content-center">
           <div class="col-lg-9 text-center">
-            <h2>Jonathan Mupini</h2>
+            <h1 class="visually-hidden">Jonathan Mupini, Software Developer &amp; IT Consultant in Zimbabwe</h1>
+            <p style="font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; color: #1d1d1f; letter-spacing: -0.03em; margin-bottom: 0.5rem;">Jonathan Mupini</p>
             <p>
               <span class="typed" data-typed-items="Software Developer,IT Consultant,Networking Specialist,Web Application Developer">Software Developer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span>
             </p>
@@ -83,6 +150,10 @@
                 <span class="material-icons-outlined">mail</span>
                 ejmupini@gmail.com
               </a>
+              <a href="/blog/" class="hero-link-btn">
+                <span class="material-icons-outlined">article</span>
+                Blog
+              </a>
             </div>
           </div>
         </div>
@@ -95,7 +166,7 @@
 
       <div class="container section-title" data-aos="fade-up">
         <h2>About</h2>
-        <p>Building digital solutions that move businesses forward</p>
+        <p>I build software for businesses in hospitality, tourism, and e-commerce.</p>
       </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -103,10 +174,10 @@
           <div class="col-lg-10">
 
             <p class="about-intro">
-              Developer with hands-on experience building web applications, internal tools, and automation systems for SMEs across hospitality, tourism, and e-commerce sectors. Strong foundation in JavaScript, React, Python, and modern web technologies with practical experience designing responsive interfaces, integrating APIs, and automating business workflows.
+              I build web applications, internal tools, and automation systems. My clients are in hospitality, tourism, and e-commerce. I work with JavaScript, React, Python, and Node.js. My work covers responsive design, API integration, and full-stack development.
             </p>
             <p class="about-intro">
-              Comfortable translating business requirements into functional software solutions and working independently across frontend and backend integration tasks. Currently completing a BSc. in Computer Science at the University of Zimbabwe.
+              I take a business requirement and turn it into working software. I handle frontend, backend, and infrastructure. I am completing a BSc in Computer Science at the University of Zimbabwe.
             </p>
 
             <p class="about-label">Core Competencies</p>
@@ -133,7 +204,7 @@
                 <span class="material-icons-outlined">design_services</span>
                 <div>
                   <h6>UI/UX &amp; Responsive Design</h6>
-                  <p>HTML5, CSS3, Tailwind CSS — pixel-perfect, mobile-first interfaces</p>
+                  <p>HTML5, CSS3, Tailwind CSS, pixel-perfect, mobile-first interfaces</p>
                 </div>
               </div>
 
@@ -281,136 +352,155 @@
 
     </section><!-- /Skills Section -->
 
+    <!-- Key Impact Section -->
+    <section id="key-impact" class="key-impact section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Key Impact</h2>
+        <p>Measurable outcomes from systems I have owned and delivered</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <ul class="impact-list">
+              <li>Shipped <strong>15+ production systems</strong> across hospitality, education, finance, and operations, owning architecture, frontend, backend, and deployment on each</li>
+              <li>Cut booking processing time from <strong>40 minutes to under 5 minutes</strong> by building an integrated travel operations platform used daily by operations staff</li>
+              <li>Recovered <strong>10+ team hours per week</strong> at Traverze Travel through Python-scheduled automation covering email campaigns, booking follow-ups, and monthly reporting</li>
+              <li>Helped modernize a family farming operation with a <strong>zero-monthly-cost branded email setup</strong> using Cloudflare Email Routing, <a href="/blog/from-hoe-handles-to-cloudflare.html">read the full walkthrough</a></li>
+              <li>Converted chaotic government tender intake into an <strong>AI-driven structured workflow</strong> using LLM extraction, file orchestration, and review-first handoff, <a href="/blog/ai-tender-automation.html">read the system breakdown</a></li>
+              <li>Reduced web LCP from <strong>5.8s to under 2.5s</strong> via async font loading, deferred scripts, and removal of ~256KB of unused vendor JavaScript, <a href="/blog/web-performance-lcp-optimization.html">read the breakdown</a></li>
+              <li>Deployed a <strong>centralized XDR security system</strong> with Wazuh and Elastic Stack, eliminating fragmented logging and shifting from reactive investigation to real-time detection, <a href="/projects/xdr-wazuh.html">view case study</a></li>
+              <li>Delivered end-to-end projects for <strong>8+ freelance clients</strong> across 5 sectors, owning every layer from data model to cloud deployment</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Key Impact Section -->
+
     <!-- Resume Section -->
     <section id="resume" class="resume section light-background">
 
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Resume</h2>
-        <p>My professional journey and education</p>
-      </div>
-
-      <div class="container">
+      <div class="container resume-section py-5" data-aos="fade-up">
         <div class="row">
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Summary</h3>
+          <div class="col-md-4">
+            <h2>Jonathan Mupini</h2>
+            <p class="text-muted">Software Developer</p>
+            <p>
+              I build scalable systems, automate business processes, and deliver high-performance web applications.
+            </p>
 
-            <div class="resume-item pb-0">
-              <h4>Jonathan Eben Mupini</h4>
-              <p><em>Software Developer, IT Consultant &amp; Networking Specialist with hands-on experience building web applications, internal tools, and automation systems for SMEs across hospitality, tourism, and e-commerce sectors.</em></p>
-              <ul>
-                <li>Email: ejmupini@gmail.com</li>
-                <li>Phone: +263 78 414 0636</li>
-                <li>GitHub: github.com/ebenjonathan</li>
-              </ul>
-            </div>
-
-            <h3 class="resume-title">Education</h3>
-
-            <div class="resume-item">
-              <h4>BSc. (Honours) Degree in Computer Science</h4>
-              <h5>In Progress</h5>
-              <p><em>University of Zimbabwe</em></p>
-              <p>Pursuing a full honours degree in Computer Science, covering software engineering, algorithms, systems programming, and networking.</p>
-            </div>
-
-            <h3 class="resume-title">Certifications</h3>
-
-            <div class="resume-item">
-              <h4>AWS Certified Solutions Architect - Practitioner</h4>
-              <h5>In Progress</h5>
-              <p>Cloud architecture fundamentals, deployment, and cost optimization on AWS.</p>
-            </div>
-
-            <div class="resume-item">
-              <h4>Network Security</h4>
-              <h5>Jul 2022</h5>
-              <p><em>Cisco Networking Academy</em></p>
-            </div>
-
-            <div class="resume-item">
-              <h4>Introduction to Cybersecurity</h4>
-              <h5>Jun 2022</h5>
-              <p><em>Cisco Networking Academy</em></p>
-            </div>
-
-            <div class="resume-item">
-              <h4>NDG Linux Unhatched</h4>
-              <h5>Jul 2022</h5>
-              <p><em>Cisco Networking Academy</em></p>
-            </div>
-
-            <div class="resume-item">
-              <h4>Nat. Foundation Certificate in Computer Operations &amp; Packages</h4>
-              <h5>Dec 2014</h5>
-              <p><em>HEXCO</em></p>
-            </div>
-
+            <nav class="mt-4">
+              <a href="#about">About</a><br>
+              <a href="#resume" class="fw-bold">Experience</a><br>
+              <a href="#projects">Projects</a>
+            </nav>
           </div>
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <h3 class="resume-title">Professional Experience</h3>
+          <div class="col-md-8">
 
-            <div class="resume-item">
-              <h4>Software Developer</h4>
-              <h5>Feb 2026 — Present</h5>
-              <p><em>Exquisite Camping</em></p>
+            <div class="mb-5">
+              <small class="text-muted">Jan 2025 - Present</small>
+              <h5>Software Developer - TechLume</h5>
               <ul>
-                <li>Designed and developed a centralized booking and reporting web application to manage the full reservation lifecycle</li>
-                <li>Built internal admin dashboards reducing manual administrative workload by 35%</li>
-                <li>Implemented automated CRM workflows reducing customer response time by over 40%</li>
-                <li>Developed chatbot-based inquiry qualification logic to automate repetitive customer queries</li>
-                <li>Redesigned company website UI improving user experience and customer self-service</li>
-                <li>Integrated multi-channel inquiry management system into a unified digital workflow</li>
+                <li>Architected and delivered full-stack business platforms with Next.js, React, Django, and Node.js, enabling end-to-end booking and operations flows while cutting manual processing by about 35%</li>
+                <li>Engineered REST APIs and service integrations that unified customer, booking, and reporting data, reducing reconciliation errors by roughly 28%</li>
+                <li>Orchestrated cloud delivery on Vercel, Render, Supabase, and Cloudflare with CI/CD guardrails, improving release frequency by around 2x and reducing production incidents by 25%</li>
+                <li>Hardened authentication and secure coding controls across core services, lowering critical security findings in release reviews by approximately 30%</li>
               </ul>
+              <div class="mt-2">
+                <span class="badge bg-light text-dark">Next.js</span>
+                <span class="badge bg-light text-dark">React</span>
+                <span class="badge bg-light text-dark">Django</span>
+                <span class="badge bg-light text-dark">Node.js</span>
+                <span class="badge bg-light text-dark">CI/CD</span>
+              </div>
+              <p class="mt-2 mb-0"><a href="/projects/performance-management-system.html" class="resume-case-link">&rarr; Case study: Performance Management System</a></p>
+              <p class="mt-1 mb-0"><a href="/blog/ai-tender-automation.html" class="resume-case-link">&rarr; See how I build systems: AI Tender Automation</a></p>
             </div>
 
-            <div class="resume-item">
-              <h4>Digital Officer</h4>
-              <h5>Feb 2023 — Feb 2026</h5>
-              <p><em>Traverze Travel</em></p>
+            <div class="mb-5">
+              <small class="text-muted">Aug 2022 - Present</small>
+              <h5>Freelance Developer - Remote</h5>
               <ul>
-                <li>Developed and maintained internal web tools supporting booking and reporting operations</li>
-                <li>Implemented frontend improvements increasing online inquiry flow</li>
-                <li>Integrated third-party APIs to streamline travel booking workflows</li>
-                <li>Supported deployment and hosting infrastructure for web applications</li>
-                <li>Contributed to SEO-driven frontend optimization improving organic search visibility</li>
+                <li>Owned architecture and delivery of production web applications across education, finance, and operations domains, driving launch timelines about 30% faster through reusable engineering patterns</li>
+                <li>Designed scalable data models in PostgreSQL, MySQL, and MongoDB with query tuning, improving read performance by approximately 25% on high-traffic views</li>
+                <li>Implemented automation and AI-enhanced workflows that reduced repetitive client-side processing by about 40% and improved data quality consistency</li>
+                <li>Built secure role-based access systems and deployment pipelines with Git and Vercel/Render, reducing post-release hotfix volume by roughly 20%</li>
               </ul>
+              <div class="mt-2">
+                <span class="badge bg-light text-dark">React</span>
+                <span class="badge bg-light text-dark">Node.js</span>
+                <span class="badge bg-light text-dark">PostgreSQL</span>
+                <span class="badge bg-light text-dark">MongoDB</span>
+                <span class="badge bg-light text-dark">Vercel</span>
+              </div>
             </div>
 
-            <div class="resume-item">
-              <h4>Freelance Developer</h4>
-              <h5>Jan 2021 — Present</h5>
-              <p><em>Remote</em></p>
+            <div class="mb-5">
+              <small class="text-muted">Feb 2023 - Feb 2026</small>
+              <h5>Digital Officer - Traverze Travel</h5>
               <ul>
-                <li>Built responsive web applications using React, JavaScript, and modern CSS frameworks</li>
-                <li>Developed frontend dashboards integrated with REST APIs</li>
-                <li>Implemented workflow automation connecting web forms to CRM and messaging platforms</li>
-                <li>Designed cloud-based deployment proposals including cost modelling and architecture documentation</li>
-                <li>Delivered frontend performance optimizations improving page load speed and engagement</li>
+                <li>Led development of internal booking and customer management systems, increasing team throughput by an estimated 30% across daily operations</li>
+                <li>Optimized landing pages and transactional interfaces for performance and UX, improving inquiry-to-booking conversion by about 18%</li>
+                <li>Integrated GDS and third-party APIs into a unified workflow, reducing manual booking touchpoints by around 35% and improving data accuracy</li>
+                <li>Automated recurring operational tasks with custom scripts and cloud tooling, reclaiming roughly 10+ team hours per week</li>
               </ul>
+              <div class="mt-2">
+                <span class="badge bg-light text-dark">JavaScript</span>
+                <span class="badge bg-light text-dark">REST APIs</span>
+                <span class="badge bg-light text-dark">Cloudflare</span>
+                <span class="badge bg-light text-dark">Vercel</span>
+                <span class="badge bg-light text-dark">Automation</span>
+              </div>
+              <p class="mt-2 mb-0"><a href="/blog/building-a-travel-booking-system.html" class="resume-case-link">&rarr; Read: Building the Travel Booking System</a></p>
             </div>
 
-            <div class="resume-item">
-              <h4>IT Intern</h4>
-              <h5>Jul 2021 — Mar 2022</h5>
-              <p><em>Traverze Travel</em></p>
+            <div class="mb-5">
+              <small class="text-muted">Jul 2021 - Mar 2022</small>
+              <h5>ICT Intern - Traverze Travel</h5>
               <ul>
-                <li>Assisted in development and technical integration of travel platforms</li>
-                <li>Automated weekly newsletter distribution replacing manual processes</li>
-                <li>Supported configuration of IP telephony system and internal network setup</li>
+                <li>Executed platform integration tasks across travel systems, shortening internal issue turnaround by approximately 20% through structured troubleshooting practices</li>
+                <li>Automated weekly communication workflows with scripting and scheduling tools, eliminating manual send cycles and improving campaign consistency by nearly 100%</li>
+                <li>Configured IP telephony and core network components for business continuity, reducing service interruption frequency by an estimated 15%</li>
               </ul>
+              <div class="mt-2">
+                <span class="badge bg-light text-dark">Scripting</span>
+                <span class="badge bg-light text-dark">IP Telephony</span>
+                <span class="badge bg-light text-dark">Networking</span>
+              </div>
             </div>
 
-            <div class="resume-item">
-              <h4>IT Support Intern</h4>
-              <h5>Jun 2019 — Dec 2019</h5>
-              <p><em>Astro Mobile Zimbabwe</em></p>
+            <div class="mb-5">
+              <small class="text-muted">Jul 2021 - Mar 2022</small>
+              <h5>Networking Technician - Tutu Technologies</h5>
               <ul>
-                <li>Delivered internal training sessions on OS upgrades, firmware updates, and device feature releases</li>
-                <li>Resolved approximately 60% of customer support tickets independently without escalation</li>
-                <li>Collaborated with R&amp;D teams during device testing cycles to identify bugs prior to product release</li>
+                <li>Delivered router, switch, and client connectivity rollouts across multiple sites, improving network readiness time by approximately 25%</li>
+                <li>Implemented baseline monitoring and fault triage routines that reduced mean time to resolution by around 22%</li>
+                <li>Standardized network configuration documentation and escalation playbooks, lowering recurring misconfiguration defects by roughly 18%</li>
               </ul>
+              <div class="mt-2">
+                <span class="badge bg-light text-dark">Routing</span>
+                <span class="badge bg-light text-dark">Switching</span>
+                <span class="badge bg-light text-dark">Network Monitoring</span>
+              </div>
+            </div>
+
+            <div class="mb-5">
+              <small class="text-muted">Jul 2019 - Dec 2019</small>
+              <h5>Customer Support Intern - Astro Mobile Zimbabwe</h5>
+              <ul>
+                <li>Resolved mobile device setup and software incidents at point of service, closing about 60% of tickets without escalation and improving customer turnaround times</li>
+                <li>Validated firmware updates and release candidates through structured test passes, reducing post-release defect reports by an estimated 15%</li>
+                <li>Facilitated technical onboarding sessions for new device features, increasing first-time customer adoption success by roughly 20%</li>
+              </ul>
+              <div class="mt-2">
+                <span class="badge bg-light text-dark">QA Testing</span>
+                <span class="badge bg-light text-dark">Device Support</span>
+                <span class="badge bg-light text-dark">Troubleshooting</span>
+              </div>
             </div>
 
           </div>
@@ -433,8 +523,8 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="portfolio-card">
-              <div class="portfolio-card-header portfolio-card-header-blue">
-                <span class="material-icons-outlined">school</span>
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/lion-of-judah-preview.webp" type="image/webp"><img src="/assets/img/lion-of-judah-preview.png" alt="Lion of Judah Academy preview" loading="lazy" width="800" height="500"></picture>
               </div>
               <div class="portfolio-card-body">
                 <h4>Lion of Judah Academy</h4>
@@ -448,8 +538,8 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="portfolio-card">
-              <div class="portfolio-card-header portfolio-card-header-green">
-                <span class="material-icons-outlined">terrain</span>
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/exquisite-camping-preview.webp" type="image/webp"><img src="/assets/img/exquisite-camping-preview.png" alt="Exquisite Camping preview" loading="lazy" width="800" height="500"></picture>
               </div>
               <div class="portfolio-card-body">
                 <h4>Exquisite Camping</h4>
@@ -463,8 +553,8 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="portfolio-card">
-              <div class="portfolio-card-header portfolio-card-header-orange">
-                <span class="material-icons-outlined">business</span>
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/first-quantum-resources-preview.webp" type="image/webp"><img src="/assets/img/first-quantum-resources-preview.png" alt="First Quantum preview" loading="lazy" width="800" height="500"></picture>
               </div>
               <div class="portfolio-card-body">
                 <h4>First Quantum</h4>
@@ -478,13 +568,188 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="portfolio-card">
-              <div class="portfolio-card-header portfolio-card-header-purple">
-                <span class="material-icons-outlined">public</span>
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/constant-north-africa-preview.webp" type="image/webp"><img src="/assets/img/constant-north-africa-preview.png" alt="Constant North Africa preview" loading="lazy" width="800" height="500"></picture>
               </div>
               <div class="portfolio-card-body">
                 <h4>Constant North Africa</h4>
                 <p>Regional platform serving business and professional services across Africa.</p>
                 <a href="https://constantnorth.africa/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                  Visit site <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/xdr-security-system-preview.webp" type="image/webp"><img src="/assets/img/xdr-security-system-preview.png" alt="XDR Security System preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>XDR Security System</h4>
+                <p>Centralized threat detection with Wazuh and Elastic Stack across multi-endpoint environments.</p>
+                <a href="/projects/xdr-wazuh.html" class="portfolio-link">
+                  Case study <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/performance-management-preview.webp" type="image/webp"><img src="/assets/img/performance-management-preview.png" alt="Performance Management preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>Performance Management</h4>
+                <p>Full-stack evaluation platform with RBAC, goal tracking, and automated review workflows.</p>
+                <a href="/projects/performance-management-system.html" class="portfolio-link">
+                  Case study <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
+                </a>
+                <a href="https://github.com/ebenjonathan/pms" target="_blank" rel="noopener noreferrer" class="portfolio-link" style="margin-top:6px;opacity:0.75;font-size:0.85em">
+                  GitHub <span class="material-icons-outlined portfolio-link-icon">open_in_new</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/ai-tender-automation-preview.webp" type="image/webp"><img src="/assets/img/ai-tender-automation-preview.png" alt="AI Tender Automation preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>AI Tender Automation</h4>
+                <p>Demo workflow for PDF/DOCX ingestion, OCR fallback, OpenAI extraction, and review-based final output.</p>
+                <a href="/projects/tender-automation-demo.html" class="portfolio-link">
+                  Open demo (demo only) <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/mai-chiko-birthday-preview.webp" type="image/webp"><img src="/assets/img/mai-chiko-birthday-preview.png" alt="a birthday celebration website preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>a birthday celebration website</h4>
+                <p>Personalised interactive birthday site: countdown, family messages, WhatsApp RSVP, and a celebration gallery, built for Mum's golden jubilee.</p>
+                <a href="https://mai-chiko.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                  Visit site <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/fiscus-accounting-pwa-preview.webp" type="image/webp"><img src="/assets/img/fiscus-accounting-pwa-preview.png" alt="Fiscus Zimbabwe Accounting PWA preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>Fiscus, Zimbabwe Accounting PWA</h4>
+                <p>Offline-first double-entry ledger with ZIMRA fiscalisation, USD/ZWL multi-currency, EcoCash payment rails, and load-shedding resilience. Built for Zimbabwean SMEs.</p>
+                <span class="portfolio-link" style="opacity:0.6;cursor:default">In design review, coming soon</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/ein-academy-portal-preview.webp" type="image/webp"><img src="/assets/img/ein-academy-portal-preview.png" alt="EIN Academy Portal preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>EIN Academy Portal</h4>
+                <p>Tutoring management platform: student &amp; tutor scheduling, session tracking, and admin dashboard for a growing education service.</p>
+                <a href="https://ein-academy-portal.pages.dev/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                  Visit site <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/mupini-family-domain-hosting-preview.webp" type="image/webp"><img src="/assets/img/mupini-family-domain-hosting-preview.png" alt="Mupini Family Domain and Hosting preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>Mupini, Family Domain &amp; Hosting</h4>
+                <p>Domain registration, DNS management, and web hosting setup for the family's <em>mupini.co.zw</em> presence, keeping the family online.</p>
+                <a href="https://mupini.co.zw" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                  Visit site <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/bus-travel-platform-preview.webp" type="image/webp"><img src="/assets/img/bus-travel-platform-preview.png" alt="Bus Travel Platform preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>Bus Travel Platform</h4>
+                <p>Modernising a bus travel website, redesigned UX, booking flow, and route management. Currently in active development.</p>
+                <span class="portfolio-link" style="opacity:0.6;cursor:default">Coming soon</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/trucost-digital-tax-preview.webp" type="image/webp"><img src="/assets/img/trucost-digital-tax-preview.png" alt="TruCost Zimbabwe Digital Tax Calculator preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>TruCost, Zimbabwe Digital Tax Calculator</h4>
+                <p>PWA that makes Zimbabwe's invisible 2026 digital tax regime visible. Breaks down DSWT, IMTT, and provider fees across all major banks and mobile money operators.</p>
+                <a href="/blog/trucost-digital-tax.html" class="portfolio-link">Read the case study</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/ishealienaya-brand-identity-preview.webp" type="image/webp"><img src="/assets/img/ishealienaya-brand-identity-preview.png" alt="Ishealienaya Investments Brand Identity preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>Ishealienaya Investments, Brand Identity</h4>
+                <p>Full brand identity for a Zimbabwe logistics and driver training company. Monogram logo integrating the IAA initials with truck silhouettes, colour system, and typography.</p>
+                <a href="/blog/ishealienaya-brand-strategy.html" class="portfolio-link">Read the case study</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/traverze-travel-redesign-preview.webp" type="image/webp"><img src="/assets/img/traverze-travel-redesign-preview.png" alt="Traverze Travel Redesign preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>Traverze Travel, Redesign</h4>
+                <p>Full website redesign for a Zimbabwe travel agency. Modernised UX, booking flows, and brand presentation across mobile and desktop.</p>
+                <a href="https://traverzetravel.co.zw" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                  Visit site <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/lounge-redesign-preview.webp" type="image/webp"><img src="/assets/img/lounge-redesign-preview.png" alt="Lounge.co.zw Redesign preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <h4>Lounge.co.zw, Redesign</h4>
+                <p>Website redesign for a Zimbabwean hospitality and lounge venue. Refreshed visual identity, improved layout, and enhanced online presence.</p>
+                <a href="https://lounge.co.zw" target="_blank" rel="noopener noreferrer" class="portfolio-link">
                   Visit site <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
                 </a>
               </div>
@@ -618,26 +883,27 @@
           </div>
 
           <div class="col-lg-8">
-            <form action="https://api.web3forms.com/submit" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              <input type="hidden" name="access_key" value="a8084302-6da0-4618-be53-7dfe1e41fe49">
-              <input type="hidden" name="from_name" value="Jonathan Mupini Portfolio">
-              <input type="hidden" name="redirect" value="false">
+            <form action="/forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                  <label for="contact-name" class="form-label">Your Name</label>
+                  <input type="text" id="contact-name" name="name" class="form-control" placeholder="Your Name" required="">
                 </div>
 
                 <div class="col-md-6">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                  <label for="contact-email" class="form-label">Your Email</label>
+                  <input type="email" id="contact-email" class="form-control" name="email" placeholder="Your Email" required="">
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                  <label for="contact-subject" class="form-label">Subject</label>
+                  <input type="text" id="contact-subject" class="form-control" name="subject" placeholder="Subject" required="">
                 </div>
 
                 <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Your message..." required=""></textarea>
+                  <label for="contact-message" class="form-label">Your Message</label>
+                  <textarea id="contact-message" class="form-control" name="message" rows="6" placeholder="Your message..." required=""></textarea>
                 </div>
 
                 <div class="col-md-12 text-center">
@@ -660,7 +926,7 @@
 
   <footer id="footer" class="footer position-relative light-background">
     <div class="container text-center">
-      <h3 class="sitename">Jonathan Mupini</h3>
+      <div class="sitename">Jonathan Mupini</div>
       <p class="footer-tagline">Software Developer &middot; IT Consultant &middot; Networking Specialist</p>
       <div class="social-links d-flex justify-content-center mb-3">
         <a href="https://zw.linkedin.com/in/jonathanebenmupini" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
@@ -671,7 +937,10 @@
       <div class="container">
         <div class="footer-copyright">
           <span>&copy; 2026</span>
-          <img src="assets/img/mupinilabs-logo.png" alt="MupiniLabs" class="footer-brand-icon">
+          <picture>
+            <source srcset="assets/img/mupinilabs-logo.webp" type="image/webp">
+            <img src="assets/img/mupinilabs-logo.png" alt="MupiniLabs" class="footer-brand-icon" loading="lazy" width="120" height="40">
+          </picture>
           <span>All Rights Reserved</span>
         </div>
       </div>
@@ -679,7 +948,8 @@
   </footer>
 
   <!-- Download CV Button -->
-  <a href="Jonathan Mupini Resume.pdf" download="Jonathan_Mupini_CV.pdf" id="download-cv" class="download-cv-btn">
+  <!-- Download CV Button (opens lead capture modal — see assets/js/cv-funnel.js) -->
+  <button type="button" id="download-cv" class="download-cv-btn" aria-haspopup="dialog">
     <svg class="download-cv-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <!-- Document body with folded corner -->
       <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5"/>
@@ -694,7 +964,7 @@
       <polyline points="15.2 17 17.5 19.5 19.8 17"/>
     </svg>
     Download CV
-  </a>
+  </button>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -703,19 +973,16 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/contact.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script defer src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script defer src="assets/js/contact.js"></script>
+    <script defer src="assets/js/cv-funnel.js"></script>
+  <script defer src="assets/vendor/aos/aos.js"></script>
+  <script defer src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script defer src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script defer src="assets/vendor/waypoints/noframework.waypoints.js"></script>
 
   <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script defer src="assets/js/main.js"></script>
 
 </body>
 
