@@ -70,9 +70,12 @@ Commit and push.
    | Framework preset | None |
    | Root directory | `/` (repo root) |
    | Build command | `npm run build` |
-   | Build output directory | `.` |
+  | Build output directory | `dist` |
    | Deploy command | *(leave empty)* |
 3. Deploy → your site is live
+
+If you want to deploy manually with Wrangler, use `npx wrangler pages deploy dist`.
+Do not use `npx wrangler deploy` for this repo because `functions/` contains Cloudflare Pages Functions, not a Worker entrypoint.
 
 ---
 
