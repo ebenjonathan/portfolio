@@ -112,6 +112,7 @@ async def test_me_invalid_token(client: AsyncClient):
 async def test_expired_session_returns_401(client: AsyncClient):
     """Manually insert an already-expired session and verify rejection."""
     from datetime import datetime, timedelta, timezone
+    from sqlalchemy import text
     from app.services.database import get_connection
 
     await client.post("/api/auth/register", json={"username": "alice", "password": "StrongPass1"})
@@ -119,13 +120,25 @@ async def test_expired_session_returns_401(client: AsyncClient):
     expired_token = "expired_test_token_abc123"
     now = datetime.now(timezone.utc)
     past = now - timedelta(hours=1)
-    conn = get_connection()
-    user_row = conn.execute("SELECT id FROM users WHERE username='alice'").fetchone()
-    conn.execute(
-        "INSERT INTO sessions (token, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)",
-        (expired_token, user_row["id"], past.isoformat(), past.isoformat()),
-    )
-    conn.commit()
+
+    with get_connection() as conn:
+        user_row = conn.execute(
+            text("SELECT id FROM users WHERE username = :username"),
+            {"username": "alice"},
+        ).mappings().fetchone()
+        conn.execute(
+            text(
+                "INSERT INTO sessions (token, user_id, created_at, expires_at)"
+                " VALUES (:token, :user_id, :created_at, :expires_at)"
+            ),
+            {
+                "token": expired_token,
+                "user_id": user_row["id"],
+                "created_at": past.isoformat(),
+                "expires_at": past.isoformat(),
+            },
+        )
+        conn.commit()
 
     r = await client.get("/api/auth/me", headers={"Authorization": f"Bearer {expired_token}"})
     assert r.status_code == 401

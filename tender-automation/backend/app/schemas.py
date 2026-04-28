@@ -20,6 +20,7 @@ class TenderProcessingResponse(BaseModel):
     extracted: TenderSummary
     needs_human_review: list[str]
     final_output: str
+    r2_key: str = ""
 
 
 class TenderReviewSaveRequest(BaseModel):
@@ -42,6 +43,7 @@ class TenderRecord(BaseModel):
     status: Literal["processed", "draft", "final"] = "processed"
     created_at: str
     updated_at: str
+    r2_key: str = ""
 
 
 class UserRegisterRequest(BaseModel):

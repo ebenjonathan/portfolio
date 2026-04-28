@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -50,8 +50,8 @@
   </script>
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/assets/img/favicon.png" rel="icon">
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- DNS prefetch / preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,43 +59,46 @@
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 
   <!-- Async Google Fonts, non-blocking -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@400;500;600&family=Raleway:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@400;500;600&family=Raleway:wght@400;600;700;800&display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"></noscript>
 
   <!-- Async Material Icons, non-blocking -->
   <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"></noscript>
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="/assets/css/main.css" rel="stylesheet">
 
   <!-- Custom Styles -->
-  <link href="assets/css/custom.css" rel="stylesheet">
+  <link href="/assets/css/custom.css" rel="stylesheet">
 
   <!-- Critical CSS: hero above-fold, eliminates render-blocking flash -->
   <style>
     :root{--accent-color:#0071e3}
     *,*::before,*::after{box-sizing:border-box}
-    body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1d1d1f;-webkit-font-smoothing:antialiased}
-    h1,h2,h3,h4,h5,h6{color:#1d1d1f;font-family:'Raleway',sans-serif;margin-top:0}
-    .header{position:fixed;top:0;left:0;bottom:0;padding:0 15px;z-index:997;overflow-y:auto;min-width:160px;max-width:160px;background:rgba(255,255,255,.55);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border-right:1px solid rgba(232,232,237,.6);display:flex;flex-direction:column;justify-content:center}
+    body{margin:0;font-family:'Open Sans',sans-serif;background:#fff;color:#1d1d1f;-webkit-font-smoothing:antialiased}
+    h1,h2,h3,h4,h5,h6{color:#1d1d1f;font-family:'Open Sans',sans-serif;margin-top:0}
+        .header{position:fixed;top:0;left:0;bottom:0;padding:0 15px;z-index:997;overflow-x:hidden;overflow-y:auto;min-width:80px;max-width:80px;width:80px;background:#fff;border-right:1px solid rgba(232,232,237,.9);opacity:1;filter:none;mix-blend-mode:normal;display:flex;flex-direction:column;justify-content:center;transition:width .28s cubic-bezier(.4,0,.2,1),max-width .28s cubic-bezier(.4,0,.2,1)}
     @media(max-width:1199px){.header{background:#fff;width:300px;left:-100%;min-width:unset;max-width:unset}}
-    .header~main{margin-left:160px}
+      .header~main{margin-left:80px;transition:margin-left .28s cubic-bezier(.4,0,.2,1)}
+      @media(min-width:1200px){.header:hover{width:220px;max-width:220px}.header:hover~main{margin-left:220px}.header~main .hero{margin-left:0!important;width:auto!important}.header .navmenu a i,.header .navmenu a i.navicon{opacity:1!important;color:#1d1d1f!important;filter:none!important;mix-blend-mode:normal!important}.header .navmenu a:hover i,.header .navmenu a.active i,.header .navmenu li:hover>a i{opacity:1!important;color:#0071e3!important}}
     @media(max-width:1199px){.header~main{margin-left:0}}
     .hero{background:#fff!important;min-height:100vh;display:flex;align-items:center;position:relative}
     .hero .container{position:relative;z-index:1}
     .hero img{display:none!important}
-    .hero p{font-size:1.25rem;color:#6e6e73;font-weight:400;margin:.5rem 0 0}
-    .hero .typed{color:#0071e3;font-weight:600}
-    .hero-links{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;justify-content:center}
-    .hero-link-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:980px;font-size:.9rem;font-weight:500;text-decoration:none;border:1.5px solid #0071e3;color:#0071e3;background:transparent}
+    .hero-title{font-size:clamp(2.5rem,6vw,4rem);font-weight:800;color:#1d1d1f;letter-spacing:-.03em;margin:0 0 .75rem;font-family:'Raleway',sans-serif}
+    .hero-subtitle{font-size:1.15rem;color:#3a3a3c;font-weight:500;margin:0 auto .5rem;max-width:600px}
+    .hero-value{font-size:.95rem;color:#6e6e73;margin:.25rem auto 2rem;max-width:540px}
+    .hero-cta{display:flex;flex-direction:column;align-items:center;gap:1rem}
+    .hero-btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.75rem;border-radius:980px;font-size:.95rem;font-weight:600;text-decoration:none;background:#0071e3;color:#fff;border:none;cursor:pointer}
+    .hero-secondary-btns{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center}
+    .hero-btn-secondary{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:980px;font-size:.9rem;font-weight:500;text-decoration:none;border:1.5px solid #0071e3;color:#0071e3;background:transparent;cursor:pointer;font-family:inherit}
     #preloader{position:fixed;inset:0;z-index:9999;background:#fff}
-    .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
   </style>
 </head>
 
@@ -109,7 +112,6 @@
       <ul>
         <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i><span>Home</span></a></li>
         <li><a href="#about"><i class="bi bi-person navicon"></i><span>About</span></a></li>
-        <li><a href="#skills"><i class="bi bi-code-slash navicon"></i><span>Skills</span></a></li>
         <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i><span>Resume</span></a></li>
         <li><a href="#portfolio"><i class="bi bi-kanban navicon"></i><span>Portfolio</span></a></li>
         <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i><span>Services</span></a></li>
@@ -123,38 +125,49 @@
   <main class="main">
 
     <!-- Hero Section -->
-    <section id="hero" class="hero section">
+    <section id="hero" class="hero section hero-saas">
 
-      <div class="container" data-aos="zoom-out">
-        <div class="row justify-content-center">
-          <div class="col-lg-9 text-center">
-            <h1 class="visually-hidden">Jonathan Mupini, Software Developer &amp; IT Consultant in Zimbabwe</h1>
-            <p style="font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; color: #1d1d1f; letter-spacing: -0.03em; margin-bottom: 0.5rem;">Jonathan Mupini</p>
-            <p>
-              <span class="typed" data-typed-items="Software Developer,IT Consultant,Networking Specialist,Web Application Developer">Software Developer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span>
-            </p>
-            <div class="hero-links" data-aos="fade-up" data-aos-delay="200">
-              <a href="tel:+263784140636" class="hero-link-btn">
-                <span class="material-icons-outlined">phone</span>
-                +263 78 414 0636
-              </a>
-              <a href="https://zw.linkedin.com/in/jonathanebenmupini" target="_blank" rel="noopener noreferrer" class="hero-link-btn">
-                <i class="bi bi-linkedin"></i>
-                LinkedIn
-              </a>
-              <a href="https://github.com/ebenjonathan" target="_blank" rel="noopener noreferrer" class="hero-link-btn">
-                <i class="bi bi-github"></i>
-                GitHub
-              </a>
-              <a href="mailto:ejmupini@gmail.com" class="hero-link-btn">
-                <span class="material-icons-outlined">mail</span>
-                ejmupini@gmail.com
-              </a>
-              <a href="/blog/" class="hero-link-btn">
-                <span class="material-icons-outlined">article</span>
-                Blog
-              </a>
+      <div class="container" data-aos="fade-up">
+        <div class="row align-items-center hero-saas-row g-4 g-lg-5">
+          <div class="col-lg-7">
+            <div class="hero-copy">
+              <h1 class="hero-title">Building modern web experiences that combine design, performance, and scalability.</h1>
+              <p class="hero-subtitle">I design and develop fast, scalable digital products with a focus on clean UI, strong UX systems, and cloud-ready architecture.</p>
+              <div class="hero-cta" data-aos="fade-up" data-aos-delay="150">
+                <a href="#portfolio" class="hero-btn-primary">View Projects</a>
+                <button type="button" id="download-cv" class="hero-btn-secondary" aria-haspopup="dialog">Download CV</button>
+              </div>
+              <p class="hero-micro">Currently focused on cloud computing, frontend systems, and scalable web architecture.</p>
             </div>
+          </div>
+
+          <div class="col-lg-5">
+            <aside class="hero-profile-card" data-aos="fade-left" data-aos-delay="220" aria-label="Profile Snapshot">
+              <p class="hero-profile-label">Profile Snapshot</p>
+              <h3>Jonathan Mupini</h3>
+              <p class="hero-profile-role">Software Developer, Cloud-Focused Builder</p>
+              <div class="hero-profile-stats">
+                <div>
+                  <strong>15+</strong>
+                  <span>Projects</span>
+                </div>
+                <div>
+                  <strong>7</strong>
+                  <span>Years</span>
+                </div>
+                <div>
+                  <strong>5</strong>
+                  <span>Sectors</span>
+                </div>
+              </div>
+              <div class="hero-tech-tags" aria-label="Tech Focus">
+                <span>React</span>
+                <span>JavaScript</span>
+                <span>Python</span>
+                <span>Cloud</span>
+                <span>UX Systems</span>
+              </div>
+            </aside>
           </div>
         </div>
       </div>
@@ -164,92 +177,32 @@
     <!-- About Section -->
     <section id="about" class="about section light-background">
 
-      <div class="container section-title" data-aos="fade-up">
-        <h2>About</h2>
-        <p>I build software for businesses in hospitality, tourism, and e-commerce.</p>
-      </div>
+      <div class="container about-shell" data-aos="fade-up">
+        <div class="section-title about-title-wrap">
+          <h2>About Me</h2>
+          <p>I am a Computer Science graduate working at the intersection of software development, cloud computing, and digital product design. I build systems that are practical, scalable, and user-focused.</p>
+        </div>
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row justify-content-center">
-          <div class="col-lg-10">
+        <div class="about-grid" data-aos="fade-up" data-aos-delay="120">
+          <article class="about-card">
+            <h3>Background</h3>
+            <p>Computer Science background with experience in frontend development, IT support, and digital operations.</p>
+          </article>
 
-            <p class="about-intro">
-              I build web applications, internal tools, and automation systems. My clients are in hospitality, tourism, and e-commerce. I work with JavaScript, React, Python, and Node.js. My work covers responsive design, API integration, and full-stack development.
-            </p>
-            <p class="about-intro">
-              I take a business requirement and turn it into working software. I handle frontend, backend, and infrastructure. I am completing a BSc in Computer Science at the University of Zimbabwe.
-            </p>
+          <article class="about-card">
+            <h3>Skills</h3>
+            <p>React, JavaScript, Python, PHP, API integration, UI systems, and cloud fundamentals.</p>
+          </article>
 
-            <p class="about-label">Core Competencies</p>
+          <article class="about-card">
+            <h3>Focus</h3>
+            <p>Currently transitioning deeper into cloud computing and secure system architecture.</p>
+          </article>
 
-            <div class="competency-grid">
-
-              <div class="competency-card">
-                <span class="material-icons-outlined">code</span>
-                <div>
-                  <h6>JavaScript &amp; React</h6>
-                  <p>ES6+, React, Node.js, REST API integration and modern frontend development</p>
-                </div>
-              </div>
-
-              <div class="competency-card">
-                <span class="material-icons-outlined">terminal</span>
-                <div>
-                  <h6>Python &amp; Backend</h6>
-                  <p>Python scripting, automation, PostgreSQL, server-side logic and integrations</p>
-                </div>
-              </div>
-
-              <div class="competency-card">
-                <span class="material-icons-outlined">design_services</span>
-                <div>
-                  <h6>UI/UX &amp; Responsive Design</h6>
-                  <p>HTML5, CSS3, Tailwind CSS, pixel-perfect, mobile-first interfaces</p>
-                </div>
-              </div>
-
-              <div class="competency-card">
-                <span class="material-icons-outlined">auto_fix_high</span>
-                <div>
-                  <h6>Workflow Automation</h6>
-                  <p>CRM integration, chatbot logic, multi-channel automation and process optimization</p>
-                </div>
-              </div>
-
-              <div class="competency-card">
-                <span class="material-icons-outlined">cloud</span>
-                <div>
-                  <h6>Cloud &amp; Infrastructure</h6>
-                  <p>AWS architecture, deployment proposals, hosting infrastructure and cost modelling</p>
-                </div>
-              </div>
-
-              <div class="competency-card">
-                <span class="material-icons-outlined">lan</span>
-                <div>
-                  <h6>Networking &amp; IT</h6>
-                  <p>IP telephony, network setup, Linux administration and cybersecurity fundamentals</p>
-                </div>
-              </div>
-
-              <div class="competency-card">
-                <span class="material-icons-outlined">hub</span>
-                <div>
-                  <h6>API &amp; Systems Integration</h6>
-                  <p>Third-party API integration, booking systems, CRM and messaging platforms</p>
-                </div>
-              </div>
-
-              <div class="competency-card">
-                <span class="material-icons-outlined">query_stats</span>
-                <div>
-                  <h6>SEO &amp; Digital Performance</h6>
-                  <p>Frontend SEO optimization, page speed improvements and organic search visibility</p>
-                </div>
-              </div>
-
-            </div>
-          </div>
+          <article class="about-card">
+            <h3>Goals</h3>
+            <p>To work in cloud engineering or cloud security roles while building production-grade systems.</p>
+          </article>
         </div>
       </div>
 
@@ -290,67 +243,6 @@
 
     </section><!-- /Stats Section -->
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills section">
-
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Technical Skills</h2>
-        <p>Technologies and tools I work with</p>
-      </div>
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row justify-content-center">
-          <div class="col-lg-10">
-            <div class="d-flex flex-wrap gap-3">
-
-              <div class="skill-category">
-                <h5>Languages</h5>
-                <span class="skill-pill">JavaScript (ES6+)</span>
-                <span class="skill-pill">Python</span>
-                <span class="skill-pill">PHP</span>
-                <span class="skill-pill">Java</span>
-              </div>
-
-              <div class="skill-category">
-                <h5>Frontend</h5>
-                <span class="skill-pill">React</span>
-                <span class="skill-pill">HTML5</span>
-                <span class="skill-pill">CSS3</span>
-                <span class="skill-pill">Tailwind CSS</span>
-                <span class="skill-pill">Responsive Design</span>
-              </div>
-
-              <div class="skill-category">
-                <h5>Backend &amp; Integration</h5>
-                <span class="skill-pill">Node.js</span>
-                <span class="skill-pill">REST APIs</span>
-                <span class="skill-pill">PostgreSQL</span>
-                <span class="skill-pill">CRM Integration</span>
-              </div>
-
-              <div class="skill-category">
-                <h5>Concepts</h5>
-                <span class="skill-pill">OOP</span>
-                <span class="skill-pill">API Integration</span>
-                <span class="skill-pill">Workflow Automation</span>
-                <span class="skill-pill">System Design</span>
-              </div>
-
-              <div class="skill-category">
-                <h5>Tools &amp; Infrastructure</h5>
-                <span class="skill-pill">GitHub</span>
-                <span class="skill-pill">CI/CD</span>
-                <span class="skill-pill">Linux</span>
-                <span class="skill-pill">AWS</span>
-                <span class="skill-pill">IP Telephony</span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </section><!-- /Skills Section -->
 
     <!-- Key Impact Section -->
     <section id="key-impact" class="key-impact section">
@@ -395,7 +287,7 @@
             <nav class="mt-4">
               <a href="#about">About</a><br>
               <a href="#resume" class="fw-bold">Experience</a><br>
-              <a href="#projects">Projects</a>
+              <a href="#portfolio">Portfolio</a>
             </nav>
           </div>
 
@@ -515,10 +407,44 @@
 
       <div class="container section-title" data-aos="fade-up">
         <h2>Portfolio</h2>
-        <p>A selection of live projects I've built and maintained</p>
+        <p>Live systems with real users, click any project to see what was built and why.</p>
       </div>
 
-      <div class="container">
+      <!-- Featured Project -->
+      <div class="container" data-aos="fade-up" data-aos-delay="50">
+        <div class="portfolio-featured">
+          <div class="portfolio-featured-media">
+            <picture>
+              <source srcset="/assets/img/ai-tender-automation-preview.webp" type="image/webp">
+              <img src="/assets/img/ai-tender-automation-preview.png" alt="AI Tender Automation System" loading="lazy" width="600" height="375">
+            </picture>
+          </div>
+          <div class="portfolio-featured-content">
+            <span class="portfolio-featured-label">Featured Project</span>
+            <h3 class="portfolio-featured-title">AI Tender Automation System</h3>
+            <p class="portfolio-featured-desc"><strong>Problem:</strong> Government tender documents arrived as unstructured PDFs and DOCX files. Manual extraction took hours per document with inconsistent output and no audit trail.</p>
+            <p class="portfolio-featured-desc"><strong>Outcome:</strong> LLM-powered pipeline ingests files, runs OCR fallback, extracts structured data fields, and routes to a human review queue, cutting processing from hours to minutes.</p>
+            <div class="portfolio-featured-tech">
+              <span class="skill-chip">Python</span>
+              <span class="skill-chip">FastAPI</span>
+              <span class="skill-chip">OpenAI</span>
+              <span class="skill-chip">OCR</span>
+              <span class="skill-chip">PostgreSQL</span>
+            </div>
+            <div class="portfolio-featured-actions">
+              <a href="/projects/tender-automation-demo.html" class="hero-btn-primary" style="font-size:.85rem;padding:.55rem 1.25rem">
+                Open demo <span class="material-icons-outlined" style="font-size:1rem;vertical-align:middle">arrow_forward</span>
+              </a>
+              <a href="/blog/ai-tender-automation.html" class="hero-btn-secondary" style="font-size:.85rem;padding:.55rem 1.25rem">
+                Read case study
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Projects -->
+      <div class="container" style="margin-top:3rem">
         <div class="row gy-4" data-aos="fade-up" data-aos-delay="100">
 
           <div class="col-lg-3 col-md-6">
@@ -617,21 +543,6 @@
           <div class="col-lg-3 col-md-6">
             <div class="portfolio-card">
               <div class="portfolio-card-header portfolio-card-header-img">
-                <picture><source srcset="/assets/img/ai-tender-automation-preview.webp" type="image/webp"><img src="/assets/img/ai-tender-automation-preview.png" alt="AI Tender Automation preview" loading="lazy" width="800" height="500"></picture>
-              </div>
-              <div class="portfolio-card-body">
-                <h4>AI Tender Automation</h4>
-                <p>Demo workflow for PDF/DOCX ingestion, OCR fallback, OpenAI extraction, and review-based final output.</p>
-                <a href="/projects/tender-automation-demo.html" class="portfolio-link">
-                  Open demo (demo only) <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="portfolio-card">
-              <div class="portfolio-card-header portfolio-card-header-img">
                 <picture><source srcset="/assets/img/mai-chiko-birthday-preview.webp" type="image/webp"><img src="/assets/img/mai-chiko-birthday-preview.png" alt="a birthday celebration website preview" loading="lazy" width="800" height="500"></picture>
               </div>
               <div class="portfolio-card-body">
@@ -640,19 +551,6 @@
                 <a href="https://mai-chiko.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
                   Visit site <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
                 </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="portfolio-card">
-              <div class="portfolio-card-header portfolio-card-header-img">
-                <picture><source srcset="/assets/img/fiscus-accounting-pwa-preview.webp" type="image/webp"><img src="/assets/img/fiscus-accounting-pwa-preview.png" alt="Fiscus Zimbabwe Accounting PWA preview" loading="lazy" width="800" height="500"></picture>
-              </div>
-              <div class="portfolio-card-body">
-                <h4>Fiscus, Zimbabwe Accounting PWA</h4>
-                <p>Offline-first double-entry ledger with ZIMRA fiscalisation, USD/ZWL multi-currency, EcoCash payment rails, and load-shedding resilience. Built for Zimbabwean SMEs.</p>
-                <span class="portfolio-link" style="opacity:0.6;cursor:default">In design review, coming soon</span>
               </div>
             </div>
           </div>
@@ -683,19 +581,6 @@
                 <a href="https://mupini.co.zw" target="_blank" rel="noopener noreferrer" class="portfolio-link">
                   Visit site <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
                 </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="portfolio-card">
-              <div class="portfolio-card-header portfolio-card-header-img">
-                <picture><source srcset="/assets/img/bus-travel-platform-preview.webp" type="image/webp"><img src="/assets/img/bus-travel-platform-preview.png" alt="Bus Travel Platform preview" loading="lazy" width="800" height="500"></picture>
-              </div>
-              <div class="portfolio-card-body">
-                <h4>Bus Travel Platform</h4>
-                <p>Modernising a bus travel website, redesigned UX, booking flow, and route management. Currently in active development.</p>
-                <span class="portfolio-link" style="opacity:0.6;cursor:default">Coming soon</span>
               </div>
             </div>
           </div>
@@ -752,6 +637,40 @@
                 <a href="https://lounge.co.zw" target="_blank" rel="noopener noreferrer" class="portfolio-link">
                   Visit site <span class="material-icons-outlined portfolio-link-icon">arrow_forward</span>
                 </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- In Active Development -->
+      <div class="container portfolio-inprogress-section" data-aos="fade-up" data-aos-delay="100">
+        <h3 class="portfolio-inprogress-heading">In Active Development</h3>
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card portfolio-card-inprogress">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/fiscus-accounting-pwa-preview.webp" type="image/webp"><img src="/assets/img/fiscus-accounting-pwa-preview.png" alt="Fiscus Zimbabwe Accounting PWA preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <span class="portfolio-inprogress-badge">In Design Review</span>
+                <h4>Fiscus, Zimbabwe Accounting PWA</h4>
+                <p>Offline-first double-entry ledger with ZIMRA fiscalisation, USD/ZWL multi-currency, EcoCash payment rails, and load-shedding resilience.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="portfolio-card portfolio-card-inprogress">
+              <div class="portfolio-card-header portfolio-card-header-img">
+                <picture><source srcset="/assets/img/bus-travel-platform-preview.webp" type="image/webp"><img src="/assets/img/bus-travel-platform-preview.png" alt="Bus Travel Platform preview" loading="lazy" width="800" height="500"></picture>
+              </div>
+              <div class="portfolio-card-body">
+                <span class="portfolio-inprogress-badge">In Development</span>
+                <h4>Bus Travel Platform</h4>
+                <p>Modernising a bus travel website, redesigned UX, booking flow, and route management.</p>
               </div>
             </div>
           </div>
@@ -883,7 +802,7 @@
           </div>
 
           <div class="col-lg-8">
-            <form action="/forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            <form action="/api/contact" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
               <div class="row gy-4">
 
                 <div class="col-md-6">
@@ -939,7 +858,7 @@
           <span>&copy; 2026</span>
           <picture>
             <source srcset="assets/img/mupinilabs-logo.webp" type="image/webp">
-            <img src="assets/img/mupinilabs-logo.png" alt="MupiniLabs" class="footer-brand-icon" loading="lazy" width="120" height="40">
+            <img src="/assets/img/mupinilabs-logo.png" alt="MupiniLabs" class="footer-brand-icon" loading="lazy" width="120" height="40">
           </picture>
           <span>All Rights Reserved</span>
         </div>
@@ -947,24 +866,6 @@
     </div>
   </footer>
 
-  <!-- Download CV Button -->
-  <!-- Download CV Button (opens lead capture modal — see assets/js/cv-funnel.js) -->
-  <button type="button" id="download-cv" class="download-cv-btn" aria-haspopup="dialog">
-    <svg class="download-cv-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <!-- Document body with folded corner -->
-      <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5"/>
-      <polyline points="13 2 13 8 19 8"/>
-      <!-- Text lines -->
-      <line x1="6" y1="10" x2="10" y2="10"/>
-      <line x1="6" y1="13" x2="12" y2="13"/>
-      <line x1="6" y1="16" x2="9.5" y2="16"/>
-      <!-- Download circle -->
-      <circle cx="17.5" cy="18" r="4"/>
-      <line x1="17.5" y1="14.5" x2="17.5" y2="19"/>
-      <polyline points="15.2 17 17.5 19.5 19.8 17"/>
-    </svg>
-    Download CV
-  </button>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -973,16 +874,16 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script defer src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script defer src="assets/js/contact.js"></script>
-    <script defer src="assets/js/cv-funnel.js"></script>
-  <script defer src="assets/vendor/aos/aos.js"></script>
-  <script defer src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script defer src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script defer src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script defer src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script defer src="/assets/js/contact.js"></script>
+    <script defer src="/assets/js/cv-funnel.js"></script>
+  <script defer src="/assets/vendor/aos/aos.js"></script>
+  <script defer src="/assets/vendor/typed.js/typed.umd.js"></script>
+  <script defer src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script defer src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
 
   <!-- Main JS File -->
-  <script defer src="assets/js/main.js"></script>
+  <script defer src="/assets/js/main.js"></script>
 
 </body>
 

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I Cut My Load Time in Half… Here's How | Jonathan Mupini</title>
+  <title>I Cut My Load Time in Half, Here's How | Jonathan Mupini</title>
   <meta name="description" content="A step-by-step breakdown of exactly how I improved Core Web Vitals on a portfolio site: unused vendor removal, async fonts, deferred scripts, WebP, and inlined critical CSS.">
   <link rel="canonical" href="https://www.mupinilabs.com/blog/web-performance-lcp-optimization.html">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.mupinilabs.com/blog/web-performance-lcp-optimization.html">
-  <meta property="og:title" content="I Cut My Load Time in Half… Here's How">
+  <meta property="og:title" content="I Cut My Load Time in Half, Here's How">
   <meta property="og:description" content="A step-by-step breakdown of exactly how I improved Core Web Vitals on a portfolio site.">
-  <link rel="icon" href="../assets/img/favicon.png">
-  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <link rel="icon" href="/assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -24,8 +24,8 @@
   </script>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"></noscript>
-  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <style>
     :root{--acc:#0071e3;--text:#1d1d1f;--muted:#6e6e73;--border:#e8e8ed;--bg-alt:#f5f5f7}
     *,*::before,*::after{box-sizing:border-box;min-width:0}
@@ -88,7 +88,7 @@
       <span class="tag">Core Web Vitals</span>
     </div>
 
-    <h1 class="article-title">I Cut My Load Time in Half… Here's How</h1>
+    <h1 class="article-title">I Cut My Load Time in Half, Here's How</h1>
 
     <div class="article-meta">
       <span><i class="bi bi-person"></i> Jonathan Mupini</span>
@@ -145,9 +145,9 @@
       <h3>Fix 3: Defer all scripts</h3>
       <p>I added <code>defer</code> to every remaining <code>&lt;script&gt;</code> tag:</p>
 
-      <pre><code>&lt;script defer src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
-&lt;script defer src="assets/vendor/aos/aos.js"&gt;&lt;/script&gt;
-&lt;script defer src="assets/js/main.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;script defer src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+&lt;script defer src="/assets/vendor/aos/aos.js"&gt;&lt;/script&gt;
+&lt;script defer src="/assets/js/main.js"&gt;&lt;/script&gt;</code></pre>
 
       <p>Deferred scripts download in parallel with HTML parsing. They execute after the HTML is fully parsed. The page renders without waiting for any script. This is a one-line change per script tag with almost no downside.</p>
 
@@ -166,16 +166,16 @@ img.save("mupinilabs-logo.webp", "WEBP", quality=85, method=6)</code></pre>
 
       <pre><code>&lt;picture&gt;
   &lt;source srcset="assets/img/mupinilabs-logo.webp" type="image/webp"&gt;
-  &lt;img src="assets/img/mupinilabs-logo.png" alt="MupiniLabs"
+  &lt;img src="/assets/img/mupinilabs-logo.png" alt="MupiniLabs"
        loading="lazy" width="120" height="40"&gt;
 &lt;/picture&gt;</code></pre>
 
       <h3>Fix 6: Minify CSS and JS</h3>
       <p>I minified the main CSS and JavaScript files using Python tools (<code>csscompressor</code> and <code>jsmin</code>). The results:</p>
       <ul>
-        <li><code>main.css</code>: −30% (32KB → 22KB)</li>
-        <li><code>custom.css</code>: −23% (13.5KB → 10.4KB)</li>
-        <li><code>main.js</code>: −33% (after removing dead code from unused libraries)</li>
+        <li><code>main.css</code>: -30% (32KB ? 22KB)</li>
+        <li><code>custom.css</code>: -23% (13.5KB ? 10.4KB)</li>
+        <li><code>main.js</code>: -33% (after removing dead code from unused libraries)</li>
       </ul>
 
       <h2>Results</h2>
@@ -220,12 +220,12 @@ img.save("mupinilabs-logo.webp", "WEBP", quality=85, method=6)</code></pre>
       <div class="outcome-box">
         <h4>Summary of changes</h4>
         <ul>
-          <li>Fonts: render-blocking → async preload with noscript fallback</li>
+          <li>Fonts: render-blocking ? async preload with noscript fallback</li>
           <li>Removed 4 unused vendor JS bundles and 2 unused vendor CSS files</li>
           <li>Added <code>defer</code> to all 7 remaining script tags</li>
           <li>1.2KB of critical CSS inlined in <code>&lt;head&gt;</code></li>
-          <li>Logo: PNG → WebP with <code>&lt;picture&gt;</code> fallback, lazy-loaded</li>
-          <li>main.css −30%, custom.css −23%, main.js −33%</li>
+          <li>Logo: PNG ? WebP with <code>&lt;picture&gt;</code> fallback, lazy-loaded</li>
+          <li>main.css -30%, custom.css -23%, main.js -33%</li>
         </ul>
       </div>
 

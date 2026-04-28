@@ -2,6 +2,7 @@ const form = document.getElementById("uploadForm");
 const result = document.getElementById("result");
 const apiBaseInput = document.getElementById("apiBase");
 const apiDocsLink = document.getElementById("apiDocsLink");
+const backendState = document.getElementById("backendState");
 const tenderIdLabel = document.getElementById("tenderId");
 const recordStatusLabel = document.getElementById("recordStatus");
 const ocrUsedLabel = document.getElementById("ocrUsed");
@@ -36,12 +37,63 @@ const state = {
   csrfToken: null,
 };
 
-const sameOriginApi = `${window.location.origin}`;
-if (window.location.pathname.startsWith("/demo")) {
-  apiBaseInput.value = sameOriginApi;
+if (!window.APP_CONFIG || typeof window.APP_CONFIG !== "object") {
+  window.APP_CONFIG = { API_BASE_URL: "" };
 }
-apiDocsLink.href = `${apiBaseInput.value}/docs`;
 
+function normalizeBaseUrl(url) {
+  const normalized = (url || "").trim().replace(/\/+$/, "");
+  if (!normalized || /^__.+__$/.test(normalized)) {
+    return "";
+  }
+  return normalized;
+}
+
+function setApiBaseUrl(url) {
+  window.APP_CONFIG.API_BASE_URL = normalizeBaseUrl(url);
+  if (apiBaseInput) {
+    apiBaseInput.value = window.APP_CONFIG.API_BASE_URL;
+  }
+  if (apiDocsLink) {
+    // API docs not available in demo environment — route to 404 page
+    apiDocsLink.href = "/404.html";
+    apiDocsLink.removeAttribute("target");
+    apiDocsLink.title = "API docs not available in demo environment";
+  }
+}
+
+function getApiBaseUrl() {
+  return normalizeBaseUrl(window.APP_CONFIG.API_BASE_URL);
+}
+
+function buildApiUrl(path) {
+  const base = getApiBaseUrl();
+  if (!base) {
+    throw new Error("API base URL is not configured.");
+  }
+  return `${base}${path}`;
+}
+
+function setBackendState(isAvailable) {
+  if (!backendState) return;
+  backendState.textContent = isAvailable ? "Backend connected" : "Backend unavailable";
+}
+
+function markBackendUnavailable(error) {
+  setBackendState(false);
+  const message =
+    error && error.message
+      ? error.message
+      : "Backend unavailable. Please try again later.";
+  return new Error(`Backend unavailable: ${message}`);
+}
+
+setApiBaseUrl(window.APP_CONFIG.API_BASE_URL);
+setBackendState(true);
+
+apiBaseInput.addEventListener("input", () => {
+  setApiBaseUrl(apiBaseInput.value);
+});
 function linesToText(lines) {
   return (lines || []).join("\n");
 }
@@ -114,13 +166,20 @@ function updateAuthUi() {
 }
 
 async function authRequest(path, body) {
-  const response = await fetch(`${apiBaseInput.value}${path}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify(body),
-  });
+  let response;
+  try {
+    response = await fetch(buildApiUrl(path), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(body),
+    });
+  } catch (error) {
+    throw markBackendUnavailable(error);
+  }
+
   const data = await response.json();
+  setBackendState(true);
   if (!response.ok) {
     throw new Error(getErrorMessage(data, "Auth request failed"));
   }
@@ -139,11 +198,18 @@ function authHeaders(extra = {}) {
 }
 
 async function loadRecord(tenderId) {
-  const response = await fetch(`${apiBaseInput.value}/api/tenders/${tenderId}`, {
-    credentials: "include",
-    headers: authHeaders(),
-  });
+  let response;
+  try {
+    response = await fetch(buildApiUrl(`/api/tenders/${tenderId}`), {
+      credentials: "include",
+      headers: authHeaders(),
+    });
+  } catch (error) {
+    throw markBackendUnavailable(error);
+  }
+
   const data = await response.json();
+  setBackendState(true);
   if (!response.ok) {
     throw new Error(getErrorMessage(data, "Failed to load record"));
   }
@@ -166,11 +232,18 @@ async function loadHistory() {
     return;
   }
 
-  const response = await fetch(`${apiBaseInput.value}/api/tenders/history?limit=40`, {
-    credentials: "include",
-    headers: authHeaders(),
-  });
+  let response;
+  try {
+    response = await fetch(buildApiUrl("/api/tenders/history?limit=40"), {
+      credentials: "include",
+      headers: authHeaders(),
+    });
+  } catch (error) {
+    throw markBackendUnavailable(error);
+  }
+
   const data = await response.json();
+  setBackendState(true);
   if (!response.ok) {
     if (response.status === 401) {
       clearAuthState();
@@ -227,14 +300,17 @@ async function saveReview(status) {
   }
 
   try {
-    const response = await fetch(`${apiBaseInput.value}/api/tenders/${state.tenderId}/save`, {
+    const response = await fetch(buildApiUrl(`/api/tenders/${state.tenderId}/save`), {
       method: "POST",
       credentials: "include",
       headers: authHeaders({ "Content-Type": "application/json" }),
       body: JSON.stringify(getPayload(status)),
+    }).catch((error) => {
+      throw markBackendUnavailable(error);
     });
 
     const data = await response.json();
+    setBackendState(true);
     if (!response.ok) {
       throw new Error(getErrorMessage(data, "Save failed"));
     }
@@ -254,14 +330,17 @@ form.addEventListener("submit", async (event) => {
   const formData = new FormData(form);
 
   try {
-    const response = await fetch(`${apiBaseInput.value}/api/tenders/process`, {
+    const response = await fetch(buildApiUrl("/api/tenders/process"), {
       method: "POST",
       credentials: "include",
       headers: authHeaders(),
       body: formData,
+    }).catch((error) => {
+      throw markBackendUnavailable(error);
     });
 
     const data = await response.json();
+    setBackendState(true);
     if (!response.ok) {
       throw new Error(getErrorMessage(data, "Request failed"));
     }
@@ -305,12 +384,15 @@ loginBtn.addEventListener("click", async () => {
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     try {
-      const response = await fetch(`${apiBaseInput.value}/api/auth/logout`, {
+      const response = await fetch(buildApiUrl("/api/auth/logout"), {
         method: "POST",
         credentials: "include",
         headers: authHeaders(),
+      }).catch((error) => {
+        throw markBackendUnavailable(error);
       });
       const data = await response.json();
+      setBackendState(true);
       if (!response.ok) {
         throw new Error(getErrorMessage(data, "Logout failed"));
       }
@@ -329,7 +411,7 @@ refreshHistoryBtn.addEventListener("click", () => {
 });
 
 apiBaseInput.addEventListener("change", () => {
-  apiDocsLink.href = `${apiBaseInput.value}/docs`;
+  setApiBaseUrl(apiBaseInput.value);
 });
 
 saveDraftBtn.addEventListener("click", () => saveReview("draft"));
@@ -350,12 +432,22 @@ tabs.forEach((tab) => {
 updateAuthUi();
 
 async function bootstrapSession() {
+  if (!getApiBaseUrl()) {
+    clearAuthState();
+    updateAuthUi();
+    setBackendState(false);
+    return;
+  }
+
   try {
-    const response = await fetch(`${apiBaseInput.value}/api/auth/me`, {
+    const response = await fetch(buildApiUrl("/api/auth/me"), {
       credentials: "include",
       headers: authHeaders(),
+    }).catch((error) => {
+      throw markBackendUnavailable(error);
     });
     const data = await response.json();
+    setBackendState(true);
     if (!response.ok) {
       clearAuthState();
       updateAuthUi();

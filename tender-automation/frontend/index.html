@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tender Automation Demo</title>
+  <link rel="icon" href="/assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/tender-automation/frontend/styles.css">
 </head>
 <body>
   <main class="wrap">
@@ -18,6 +20,7 @@
       </div>
       <h1>AI Tender Automation Sandbox</h1>
       <p>Upload a tender, review extracted sections, refine the output, and save as draft or final.</p>
+      <p id="backendState" aria-live="polite"></p>
     </header>
 
     <section class="card auth-card">
@@ -44,7 +47,7 @@
       <form id="uploadForm">
         <label>
           API Base URL
-          <input type="text" id="apiBase" value="http://127.0.0.1:8000" required>
+          <input type="text" id="apiBase" value="" required>
         </label>
 
         <label>
@@ -117,6 +120,7 @@
     </section>
   </main>
 
-  <script src="app.js"></script>
+  <script src="/tender-automation/frontend/config.js"></script>
+  <script src="/tender-automation/frontend/app.js"></script>
 </body>
 </html>

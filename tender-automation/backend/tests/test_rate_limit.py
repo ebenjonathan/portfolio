@@ -36,6 +36,7 @@ async def test_login_rate_limit_resets_after_window(client: AsyncClient):
     window_start in the DB, and verify requests are allowed again.
     """
     import time
+    from sqlalchemy import text
     from app.services.database import get_connection
 
     await client.post("/api/auth/register", json={"username": "victim", "password": "StrongPass1"})
@@ -43,12 +44,16 @@ async def test_login_rate_limit_resets_after_window(client: AsyncClient):
         await client.post("/api/auth/login", json={"username": "victim", "password": "WrongPassword1"})
 
     # Move the window_start back by 61 seconds so the window has expired
-    conn = get_connection()
-    conn.execute(
-        "UPDATE auth_rate_limits SET window_start = ? WHERE bucket_key LIKE 'login:%'",
-        (int(time.time()) - 61,),
-    )
-    conn.commit()
+    with get_connection() as conn:
+        conn.execute(
+            text(
+                "UPDATE auth_rate_limits"
+                " SET window_start = :window_start"
+                " WHERE bucket_key LIKE 'login:%'"
+            ),
+            {"window_start": int(time.time()) - 61},
+        )
+        conn.commit()
 
     r = await client.post("/api/auth/login", json={"username": "victim", "password": "WrongPassword1"})
     # Should be 401 (bad password), NOT 429

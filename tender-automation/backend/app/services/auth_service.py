@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import hashlib
+import logging
 import secrets
 from datetime import datetime, timedelta, timezone
 
 from fastapi import Depends, HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from sqlalchemy import text
 
 from app.services.database import get_connection
+
+logger = logging.getLogger(__name__)
 
 TOKEN_TTL_HOURS = 24 * 7
 bearer_scheme = HTTPBearer(auto_error=False)
@@ -43,35 +47,50 @@ def register_user(username: str, password: str) -> bool:
 
     hashed = create_password_hash(password)
     with get_connection() as conn:
-        exists = conn.execute("SELECT id FROM users WHERE username = ?", (username,)).fetchone()
+        exists = conn.execute(
+            text("SELECT id FROM users WHERE username = :username"),
+            {"username": username},
+        ).fetchone()
         if exists:
             return False
         conn.execute(
-            "INSERT INTO users (username, password_hash, created_at) VALUES (?, ?, ?)",
-            (username, hashed, _now_iso()),
+            text(
+                "INSERT INTO users (username, password_hash, created_at)"
+                " VALUES (:username, :password_hash, :created_at)"
+            ),
+            {"username": username, "password_hash": hashed, "created_at": _now_iso()},
         )
         conn.commit()
+    logger.info("User registered: %s", username)
     return True
 
 
 def log_failed_attempt(action: str, username: str, ip_address: str, reason: str) -> None:
     with get_connection() as conn:
         conn.execute(
-            """
-            INSERT INTO auth_failed_attempts (action, username, ip_address, reason, created_at)
-            VALUES (?, ?, ?, ?, ?)
-            """,
-            (action, username, ip_address, reason, _now_iso()),
+            text(
+                "INSERT INTO auth_failed_attempts"
+                " (action, username, ip_address, reason, created_at)"
+                " VALUES (:action, :username, :ip_address, :reason, :created_at)"
+            ),
+            {
+                "action": action,
+                "username": username,
+                "ip_address": ip_address,
+                "reason": reason,
+                "created_at": _now_iso(),
+            },
         )
         conn.commit()
+    logger.warning("Auth failure: action=%s username=%s ip=%s reason=%s", action, username, ip_address, reason)
 
 
 def create_session_token(username: str, password: str) -> tuple[str, int] | None:
     with get_connection() as conn:
         user = conn.execute(
-            "SELECT id, password_hash FROM users WHERE username = ?",
-            (username,),
-        ).fetchone()
+            text("SELECT id, password_hash FROM users WHERE username = :username"),
+            {"username": username},
+        ).mappings().fetchone()
         if user is None:
             return None
 
@@ -82,36 +101,51 @@ def create_session_token(username: str, password: str) -> tuple[str, int] | None
         now = datetime.now(timezone.utc)
         expires = now + timedelta(hours=TOKEN_TTL_HOURS)
         conn.execute(
-            "INSERT INTO sessions (token, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)",
-            (token, user["id"], now.isoformat(), expires.isoformat()),
+            text(
+                "INSERT INTO sessions (token, user_id, created_at, expires_at)"
+                " VALUES (:token, :user_id, :created_at, :expires_at)"
+            ),
+            {
+                "token": token,
+                "user_id": user["id"],
+                "created_at": now.isoformat(),
+                "expires_at": expires.isoformat(),
+            },
         )
         conn.commit()
-        return token, user["id"]
+    logger.info("Session created for user: %s", username)
+    return token, user["id"]
 
 
 def revoke_session_token(token: str) -> None:
     with get_connection() as conn:
-        conn.execute("DELETE FROM sessions WHERE token = ?", (token,))
+        conn.execute(
+            text("DELETE FROM sessions WHERE token = :token"),
+            {"token": token},
+        )
         conn.commit()
 
 
 def get_user_from_token(token: str) -> dict | None:
     with get_connection() as conn:
         row = conn.execute(
-            """
-            SELECT u.id AS user_id, u.username, s.expires_at
-            FROM sessions s
-            JOIN users u ON u.id = s.user_id
-            WHERE s.token = ?
-            """,
-            (token,),
-        ).fetchone()
+            text(
+                "SELECT u.id AS user_id, u.username, s.expires_at"
+                " FROM sessions s"
+                " JOIN users u ON u.id = s.user_id"
+                " WHERE s.token = :token"
+            ),
+            {"token": token},
+        ).mappings().fetchone()
 
         if row is None:
             return None
 
         if datetime.fromisoformat(row["expires_at"]) < datetime.now(timezone.utc):
-            conn.execute("DELETE FROM sessions WHERE token = ?", (token,))
+            conn.execute(
+                text("DELETE FROM sessions WHERE token = :token"),
+                {"token": token},
+            )
             conn.commit()
             return None
 

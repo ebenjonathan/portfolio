@@ -1,3 +1,16 @@
+# Build output
+dist/
+
+# Wrangler local state
+.wrangler/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.venv_clean/
+
 # OS files
 .DS_Store
 Thumbs.db

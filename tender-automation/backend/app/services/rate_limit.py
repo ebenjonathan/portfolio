@@ -4,6 +4,7 @@ import time
 from dataclasses import dataclass
 
 from fastapi import HTTPException
+from sqlalchemy import text
 
 from app.services.database import get_connection
 
@@ -25,14 +26,20 @@ def enforce_rate_limit(ip_address: str, rule: RateLimitRule) -> None:
 
     with get_connection() as conn:
         row = conn.execute(
-            "SELECT count, window_start FROM auth_rate_limits WHERE bucket_key = ?",
-            (bucket_key,),
-        ).fetchone()
+            text(
+                "SELECT count, window_start FROM auth_rate_limits"
+                " WHERE bucket_key = :bucket_key"
+            ),
+            {"bucket_key": bucket_key},
+        ).mappings().fetchone()
 
         if row is None:
             conn.execute(
-                "INSERT INTO auth_rate_limits (bucket_key, count, window_start) VALUES (?, ?, ?)",
-                (bucket_key, 1, now),
+                text(
+                    "INSERT INTO auth_rate_limits (bucket_key, count, window_start)"
+                    " VALUES (:bucket_key, :count, :window_start)"
+                ),
+                {"bucket_key": bucket_key, "count": 1, "window_start": now},
             )
             conn.commit()
             return
@@ -42,8 +49,11 @@ def enforce_rate_limit(ip_address: str, rule: RateLimitRule) -> None:
 
         if now - window_start >= rule.window_seconds:
             conn.execute(
-                "UPDATE auth_rate_limits SET count = ?, window_start = ? WHERE bucket_key = ?",
-                (1, now, bucket_key),
+                text(
+                    "UPDATE auth_rate_limits SET count = :count, window_start = :window_start"
+                    " WHERE bucket_key = :bucket_key"
+                ),
+                {"count": 1, "window_start": now, "bucket_key": bucket_key},
             )
             conn.commit()
             return
@@ -55,7 +65,10 @@ def enforce_rate_limit(ip_address: str, rule: RateLimitRule) -> None:
             )
 
         conn.execute(
-            "UPDATE auth_rate_limits SET count = ? WHERE bucket_key = ?",
-            (count + 1, bucket_key),
+            text(
+                "UPDATE auth_rate_limits SET count = :count"
+                " WHERE bucket_key = :bucket_key"
+            ),
+            {"count": count + 1, "bucket_key": bucket_key},
         )
         conn.commit()

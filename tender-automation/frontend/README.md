@@ -10,7 +10,7 @@ It is labeled as demo-only for stakeholder preview.
 
 ## Run
 
-1. Ensure backend is running at `http://127.0.0.1:8000`.
+1. Ensure backend is running at your configured API base URL.
 2. Serve this folder with any static server.
 
 Example with Python:
@@ -21,9 +21,16 @@ python -m http.server 5500
 
 3. Open:
 
-- `http://127.0.0.1:5500`
+- your static server URL (for example, your Pages preview URL)
 
-4. In the UI, keep API Base URL set to backend server (default `http://127.0.0.1:8000`).
+4. In the UI, keep API Base URL set to your backend server URL.
+
+## Runtime config
+
+The frontend reads API base URL from `window.APP_CONFIG.API_BASE_URL` in `config.js`.
+Set the placeholder before deploy:
+
+`window.APP_CONFIG = { API_BASE_URL: "https://your-api.example.com" }`
 
 ## Save behavior
 

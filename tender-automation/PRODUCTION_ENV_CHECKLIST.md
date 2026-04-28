@@ -1,4 +1,100 @@
-# Production Environment Checklist
+# Production Deployment Checklist
+
+## Architecture
+```
+Browser
+  ├─► Cloudflare Pages  (portfolio + tender frontend, static)
+  │       └─► API calls ──► Render  (FastAPI + Tesseract + Poppler, Docker)
+  │                             ├─► Neon PostgreSQL (users, sessions, tenders)
+  │                             └─► Cloudflare R2   (uploaded PDFs/TXTs, optional)
+```
+
+---
+
+## 1. Neon PostgreSQL
+
+1. Create a free account at https://neon.tech
+2. Create a project → copy the **Connection string** (looks like `postgresql://user:pass@ep-xxx.neon.tech/neondb?sslmode=require`)
+3. Keep it, you'll paste it as `DATABASE_URL` in Render
+
+---
+
+## 2. Cloudflare R2 (optional)
+
+1. Cloudflare dashboard → R2 → Create bucket (e.g. `tender-uploads`)
+2. Manage R2 API tokens → Create token with **Object Read & Write** on that bucket
+3. Note: Account ID, Access Key ID, Secret Access Key, Bucket Name
+4. If you skip R2, uploads still work, files are processed in-memory then discarded
+
+---
+
+## 3. Render (FastAPI backend)
+
+1. New → Web Service → connect your GitHub repo
+2. **Root directory**: `tender-automation`
+3. **Runtime**: Docker
+4. **Dockerfile path**: `./Dockerfile`
+5. Set env vars in the Render dashboard (never commit secrets):
+   | Variable | Value |
+   |---|---|
+   | `DATABASE_URL` | Neon connection string |
+   | `OPENAI_API_KEY` | Your OpenAI key |
+   | `SESSION_COOKIE_SECURE` | `true` |
+   | `SESSION_COOKIE_SAMESITE` | `none` |
+   | `CORS_ORIGINS` | `https://your-portfolio.pages.dev` (set after Pages deploy) |
+   | `R2_ACCOUNT_ID` | Cloudflare account ID (optional) |
+   | `R2_ACCESS_KEY_ID` | R2 access key (optional) |
+   | `R2_SECRET_ACCESS_KEY` | R2 secret key (optional) |
+   | `R2_BUCKET_NAME` | `tender-uploads` (optional) |
+6. Health check path: `/health`
+7. Deploy → copy your Render URL (e.g. `https://tender-api.onrender.com`)
+
+---
+
+## 4. Frontend config
+
+Edit `tender-automation/frontend/config.js`:
+```js
+window.PUBLIC_API_URL = "https://tender-api.onrender.com";
+```
+Commit and push.
+
+---
+
+## 5. Cloudflare Pages (portfolio + frontend)
+
+1. Cloudflare dashboard → Pages → Create project → Connect Git
+2. Settings:
+   | Field | Value |
+   |---|---|
+   | Framework preset | None |
+   | Root directory | `/` (repo root) |
+   | Build command | `npm run build` |
+   | Build output directory | `.` |
+   | Deploy command | *(leave empty)* |
+3. Deploy → your site is live
+
+---
+
+## 6. Post-deploy
+
+- Update `CORS_ORIGINS` in Render with your live Pages URL
+- Test full flow: register → login → upload tender → process → save
+- Verify `/health` returns `{"status": "ok"}` on the Render URL
+
+---
+
+## Free tier limits summary
+
+| Service | Limit |
+|---|---|
+| Cloudflare Pages | Unlimited requests, 500 builds/month |
+| Render (free) | 750 hrs/month, **spins down after 15 min idle** |
+| Neon (free) | 0.5 GB storage, 1 project |
+| R2 (free) | 10 GB storage, 1M writes/month |
+
+> Render free tier cold starts take ~30s. Upgrade to **Starter ($7/mo)** to keep the service warm for demos.
+
 
 Use this checklist before and after deploying the Tender Automation demo.
 

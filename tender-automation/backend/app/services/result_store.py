@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 
+from sqlalchemy import text
+
 from app.schemas import TenderRecord, TenderReviewSaveRequest
 from app.services.database import get_connection
 
@@ -15,17 +17,20 @@ def save_processed_record(record: TenderRecord, user_id: int) -> TenderRecord:
     payload = json.dumps(record.model_dump())
     with get_connection() as conn:
         conn.execute(
-            """
-            INSERT OR REPLACE INTO tenders (tender_id, user_id, payload_json, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?)
-            """,
-            (
-                record.tender_id,
-                user_id,
-                payload,
-                record.created_at,
-                record.updated_at,
+            text(
+                "INSERT INTO tenders (tender_id, user_id, payload_json, created_at, updated_at)"
+                " VALUES (:tender_id, :user_id, :payload_json, :created_at, :updated_at)"
+                " ON CONFLICT (tender_id) DO UPDATE SET"
+                "   payload_json = EXCLUDED.payload_json,"
+                "   updated_at = EXCLUDED.updated_at"
             ),
+            {
+                "tender_id": record.tender_id,
+                "user_id": user_id,
+                "payload_json": payload,
+                "created_at": record.created_at,
+                "updated_at": record.updated_at,
+            },
         )
         conn.commit()
     return record
@@ -34,9 +39,12 @@ def save_processed_record(record: TenderRecord, user_id: int) -> TenderRecord:
 def get_record(tender_id: str, user_id: int) -> TenderRecord | None:
     with get_connection() as conn:
         row = conn.execute(
-            "SELECT payload_json FROM tenders WHERE tender_id = ? AND user_id = ?",
-            (tender_id, user_id),
-        ).fetchone()
+            text(
+                "SELECT payload_json FROM tenders"
+                " WHERE tender_id = :tender_id AND user_id = :user_id"
+            ),
+            {"tender_id": tender_id, "user_id": user_id},
+        ).mappings().fetchone()
         if row is None:
             return None
         payload = json.loads(row["payload_json"])
@@ -46,13 +54,15 @@ def get_record(tender_id: str, user_id: int) -> TenderRecord | None:
 def list_records(user_id: int, limit: int = 30) -> list[TenderRecord]:
     with get_connection() as conn:
         rows = conn.execute(
-            "SELECT payload_json FROM tenders WHERE user_id = ? ORDER BY updated_at DESC LIMIT ?",
-            (user_id, limit),
-        ).fetchall()
-    records: list[TenderRecord] = []
-    for row in rows:
-        records.append(TenderRecord(**json.loads(row["payload_json"])))
-    return records
+            text(
+                "SELECT payload_json FROM tenders"
+                " WHERE user_id = :user_id"
+                " ORDER BY updated_at DESC"
+                " LIMIT :limit"
+            ),
+            {"user_id": user_id, "limit": limit},
+        ).mappings().fetchall()
+    return [TenderRecord(**json.loads(row["payload_json"])) for row in rows]
 
 
 def save_review(tender_id: str, review: TenderReviewSaveRequest, user_id: int) -> TenderRecord | None:
@@ -84,6 +94,7 @@ def build_record(
     extracted,
     needs_human_review: list[str],
     final_output: str,
+    r2_key: str = "",
 ) -> TenderRecord:
     now = _now_iso()
     return TenderRecord(
@@ -98,4 +109,5 @@ def build_record(
         status="processed",
         created_at=now,
         updated_at=now,
+        r2_key=r2_key,
     )

@@ -1,7 +1,7 @@
 /**
  * CV Lead Capture Funnel
  * Intercepts the Download CV button, shows a lead capture modal,
- * submits to /forms/cv-lead.php, then triggers the download.
+ * submits to /api/cv-lead, then triggers the download.
  *
  * Analytics events (fires via gtag if GA is loaded):
  *   cv_click       — user clicks the Download CV button
@@ -13,7 +13,7 @@
   'use strict';
 
   const CV_URL  = '/assets/docs/jonathan-mupini-resume.pdf';
-  const API_URL = '/forms/cv-lead.php';
+  const API_URL = '/api/cv-lead';
 
   // Read ?ref= tracking param from the page URL
   const ref = new URLSearchParams(window.location.search).get('ref') || '';
@@ -319,7 +319,7 @@
   function onEscape(e)       { if (e.key === 'Escape')    closeModal(); }
 
   // ── Form submission ───────────────────────────────────────────────────────────
-  function onFormSubmit(e) {
+  async function onFormSubmit(e) {
     e.preventDefault();
     if (!validateForm()) return;
 
@@ -337,37 +337,58 @@
     spinner.hidden        = false;
     globalErr.textContent = '';
 
-    var formData = new FormData();
-    formData.append('name',    document.getElementById('cv-name').value.trim());
-    formData.append('email',   document.getElementById('cv-email').value.trim());
-    formData.append('company', document.getElementById('cv-company').value.trim());
-    formData.append('intent',  document.getElementById('cv-intent').value);
-    formData.append('ref',     ref);
-    formData.append('website', hp ? hp.value : ''); // honeypot
+    var payload = {
+      name: document.getElementById('cv-name').value.trim(),
+      email: document.getElementById('cv-email').value.trim(),
+      company: document.getElementById('cv-company').value.trim(),
+      intent: document.getElementById('cv-intent').value,
+      ref: ref,
+      website: hp ? hp.value : ''
+    };
 
     var intent = document.getElementById('cv-intent').value || 'not_set';
-    track('cv_form_submit', { intent: intent });
 
-    fetch(API_URL, { method: 'POST', body: formData })
-      .then(function (res) { return res.json(); })
-      .then(function (data) {
-        if (data.ok) {
-          showConfirmation();
-          triggerDownload(CV_URL);
-          track('cv_download', { intent: intent });
-        } else {
-          globalErr.textContent = data.message || 'Something went wrong. Please try again.';
-          submitBtn.disabled = false;
-          submitLabel.hidden = false;
-          spinner.hidden     = true;
-        }
-      })
-      .catch(function () {
-        // Network failure — allow download anyway, don't penalise the user
+    try {
+      var res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      var data;
+      try {
+        data = await res.json();
+      } catch {
+        console.error('Invalid JSON response');
+        data = null;
+      }
+
+      if (res.ok === true && data && data.success === true) {
+        track('cv_form_submit', { intent: intent });
         showConfirmation();
         triggerDownload(CV_URL);
-        track('cv_download', { intent: intent, note: 'network_fallback' });
+        track('cv_download', { intent: intent });
+        return;
+      }
+
+      console.error('CV lead API error', {
+        status: res.status,
+        response: data,
       });
+      globalErr.textContent =
+        (data && typeof data.message === 'string' && data.message.trim())
+          ? data.message.trim()
+          : 'Something went wrong. Please try again.';
+      submitBtn.disabled = false;
+      submitLabel.hidden = false;
+      spinner.hidden     = true;
+    } catch (error) {
+      console.error('CV lead request failed', error);
+      globalErr.textContent = 'Network error. Please check your connection and try again.';
+      submitBtn.disabled = false;
+      submitLabel.hidden = false;
+      spinner.hidden     = true;
+    }
   }
 
   function showConfirmation() {
